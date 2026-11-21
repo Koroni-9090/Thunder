@@ -1,0 +1,21 @@
+{
+  "name": "SahulatRail: AI on Public Rails by Team Thunder",
+  "short_name": "SahulatRail",
+  "description": "Digital Public Infrastructure AI Platform for Emergency Relief and Low-Literacy Citizens",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#1E1B4B",
+  "theme_color": "#F59E0B",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
