@@ -5,9 +5,11 @@ import React from 'react';
 export function ThunderLogo({
   size = 'md',
   className = '',
+  withText = true,
 }: {
   size?: 'sm' | 'md' | 'lg' | number;
   className?: string;
+  withText?: boolean;
 }) {
   let dim = 'w-10 h-10';
   let iconSize = 'w-5 h-5';
@@ -25,30 +27,34 @@ export function ThunderLogo({
 
   return (
     <div className={`flex items-center gap-2.5 ${className}`}>
+      {/* Lightning Badge */}
       <div
-        className={`${dim} rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-yellow-500 flex items-center justify-center shadow-lg border-2 border-amber-300 transform transition hover:rotate-6 flex-shrink-0`}
+        className={`${dim} rounded-md bg-[#859114] flex items-center justify-center shadow border border-[#6F7910] text-white flex-shrink-0`}
       >
         <svg
           viewBox="0 0 24 24"
           fill="currentColor"
-          className={`${iconSize} text-slate-950 drop-shadow`}
+          className={`${iconSize} text-white drop-shadow-sm`}
         >
           <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
         </svg>
       </div>
-      <div>
-        <div className="flex items-center gap-1.5">
-          <span className="font-black text-lg sm:text-xl tracking-tight text-white leading-none">
-            SahulatRail
-          </span>
-          <span className="text-[9px] font-black tracking-widest uppercase bg-amber-400/20 text-amber-300 border border-amber-400/40 px-1.5 py-0.5 rounded-full">
-            THUNDER
+
+      {withText && (
+        <div className="flex flex-col">
+          <div className="flex items-center gap-1.5">
+            <span className="font-extrabold text-lg sm:text-xl tracking-tight text-white leading-none">
+              SahulatRail
+            </span>
+            <span className="text-[10px] font-black tracking-widest uppercase bg-white/20 text-white border border-white/30 px-1.5 py-0.2 rounded">
+              THUNDER
+            </span>
+          </div>
+          <span className="text-[10px] text-white/80 tracking-wide font-medium">
+            AI on Public Rails
           </span>
         </div>
-        <div className="text-[10px] text-indigo-200 tracking-wide font-medium">
-          DPI AI Platform by Team Thunder
-        </div>
-      </div>
+      )}
     </div>
   );
 }

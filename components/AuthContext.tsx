@@ -6,7 +6,10 @@ import { User, UserRole, NotificationItem } from '../lib/types';
 interface AuthContextType {
   currentUser: User | null;
   user: User | null;
+  isLoggedIn: boolean;
   setCurrentUser: (user: User | null) => void;
+  loginUser: (user: User, token?: string) => void;
+  logout: () => Promise<void>;
   switchRole: (role: UserRole) => Promise<void>;
   language: 'ur' | 'en';
   setLanguage: (lang: 'ur' | 'en') => void;
@@ -72,14 +75,16 @@ const PRESET_USERS: Record<UserRole, User> = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [currentUser, setCurrentUser] = useState<User | null>(PRESET_USERS.citizen);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [language, setLanguage] = useState<'ur' | 'en'>('en');
   const [isOnline, setIsOnline] = useState<boolean>(true);
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
+  const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
 
+  // Initialize session and available speech voices
   useEffect(() => {
-    // Check initial online status
     if (typeof window !== 'undefined') {
       setIsOnline(navigator.onLine);
       const handleOnline = () => setIsOnline(true);
@@ -87,6 +92,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       window.addEventListener('online', handleOnline);
       window.addEventListener('offline', handleOffline);
+
+      // Load voices
+      const updateVoices = () => {
+        const v = window.speechSynthesis.getVoices();
+        setAvailableVoices(v);
+      };
+      updateVoices();
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.onvoiceschanged = updateVoices;
+      }
+
+      // Check existing session from localStorage / me endpoint
+      const savedUser = localStorage.getItem('sahulat_user');
+      if (savedUser) {
+        try {
+          const parsed = JSON.parse(savedUser);
+          setCurrentUser(parsed);
+          setIsLoggedIn(true);
+          setLanguage(parsed.language_pref || 'en');
+        } catch {
+          // ignore
+        }
+      } else {
+        // Default to demo citizen so initial state is friendly, but user can log out
+        const defaultDemo = PRESET_USERS.citizen;
+        setCurrentUser(defaultDemo);
+        setIsLoggedIn(true);
+        localStorage.setItem('sahulat_user', JSON.stringify(defaultDemo));
+      }
 
       // Register Service Worker for offline capability
       if ('serviceWorker' in navigator) {
@@ -120,10 +154,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => clearInterval(interval);
   }, [currentUser]);
 
+  const loginUser = (user: User, token?: string) => {
+    setCurrentUser(user);
+    setIsLoggedIn(true);
+    setLanguage(user.language_pref || 'en');
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('sahulat_user', JSON.stringify(user));
+      if (token) localStorage.setItem('sahulat_token', token);
+    }
+  };
+
+  const logout = async () => {
+    setCurrentUser(null);
+    setIsLoggedIn(false);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('sahulat_user');
+      localStorage.removeItem('sahulat_token');
+      // Clear cookie
+      document.cookie = 'sahulat_session=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      window.location.href = '/dashboard';
+    }
+  };
+
   const switchRole = async (role: UserRole) => {
     const user = PRESET_USERS[role];
     setCurrentUser(user);
+    setIsLoggedIn(true);
     setLanguage(user.language_pref);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('sahulat_user', JSON.stringify(user));
+    }
 
     // Call mock login to set cookie
     try {
@@ -143,29 +203,38 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     );
   };
 
-  // Young Man Voice Synthesis (Pitch 1.22, Rate 1.05, youthful crisp timbre)
+  // Dual-Language Young Man Voice Synthesis (Urdu + English)
   const speakText = (text: string, lang: 'ur' | 'en' = language) => {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
 
     window.speechSynthesis.cancel();
-    if (!text) return;
+    if (!text || !text.trim()) return;
 
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.pitch = 1.22; // Energetic, youthful pitch (prevents sounding like an old man)
-    utterance.rate = 1.05; // Alert and crisp delivery pace
+    utterance.pitch = 1.22; // Energetic, youthful pitch
+    utterance.rate = 1.05;  // Crisp delivery pace
 
-    const voices = window.speechSynthesis.getVoices();
+    const voices = availableVoices.length > 0 ? availableVoices : window.speechSynthesis.getVoices();
+
     if (lang === 'ur') {
-      const urVoice = voices.find((v) => v.lang.startsWith('ur') || v.lang.startsWith('hi'));
+      // Look for Urdu voices first, then Hindi (which shares high phonetic compatibility for Urdu script/roman), then general
+      const urVoice = voices.find(
+        (v) =>
+          v.lang.toLowerCase().startsWith('ur') ||
+          v.lang.toLowerCase().includes('pk') ||
+          v.lang.toLowerCase().startsWith('hi') ||
+          v.name.toLowerCase().includes('urdu')
+      );
       if (urVoice) utterance.voice = urVoice;
       utterance.lang = 'ur-PK';
     } else {
-      // Select younger male sounding voices
+      // Look for crisp, young male English voices
       const youngMaleVoice = voices.find(
         (v) =>
           (v.name.includes('Ryan') ||
             v.name.includes('Guy') ||
             v.name.includes('Natural') ||
+            v.name.includes('David') ||
             v.name.includes('Male')) &&
           v.lang.startsWith('en')
       );
@@ -194,7 +263,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       value={{
         currentUser,
         user: currentUser,
+        isLoggedIn,
         setCurrentUser,
+        loginUser,
+        logout,
         switchRole,
         language,
         setLanguage,

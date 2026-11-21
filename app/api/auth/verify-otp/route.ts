@@ -4,26 +4,33 @@ import { createSessionToken } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, otp } = await req.json();
+    const body = await req.json();
+    const identifier = (body.email || body.phone || body.identifier || '').trim();
+    const otp = (body.otp || '').trim();
 
-    if (!email || !otp) {
-      return NextResponse.json({ error: 'Email and OTP are required' }, { status: 400 });
+    if (!identifier || !otp) {
+      return NextResponse.json({ error: 'Identifier and OTP are required' }, { status: 400 });
     }
 
-    const stored = db.otpStore[email.toLowerCase()];
-    // Allow master test OTP '123456' for automated tests
+    const isPhone = /^[0-9+ -]{7,15}$/.test(identifier);
+    const lookupKey = isPhone
+      ? `${identifier.replace(/[^0-9]/g, '')}@phone.sahulatrail.pk`
+      : identifier.toLowerCase();
+
+    const stored = db.otpStore[lookupKey];
+    // Master test OTP '123456' always valid for demo/test runners
     const isValid = otp === '123456' || (stored && stored.otp === otp && Date.now() < stored.expiresAt);
 
     if (!isValid) {
-      return NextResponse.json({ error: 'Invalid or expired OTP' }, { status: 401 });
+      return NextResponse.json({ error: 'Invalid or expired OTP code' }, { status: 401 });
     }
 
-    let user = db.getUserByEmail(email);
+    let user = db.getUserByEmail(lookupKey);
     if (!user) {
       user = {
         id: `usr-${Date.now()}`,
-        name: email.split('@')[0],
-        email: email.toLowerCase(),
+        name: isPhone ? `Citizen ${identifier}` : identifier.split('@')[0],
+        email: lookupKey,
         cnic_mock: '35201-0000000-1',
         role: 'citizen',
         language_pref: 'ur',
@@ -41,7 +48,8 @@ export async function POST(req: NextRequest) {
     });
 
     const response = NextResponse.json({
-      message: 'OTP verified successfully',
+      success: true,
+      message: 'OTP verified successfully. Authenticated.',
       user,
       token,
     });

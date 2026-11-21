@@ -5,6 +5,23 @@
 @tailwind utilities;
 
 :root {
+  /* Theme & Surface Colors */
+  --bg-body: #BEB9C7;              /* Soft lavender-gray */
+  --bg-surface: #CBC6D3;           /* Card / container background */
+  --bg-surface-elevated: #D5D1DC;  /* Slightly lighter tint for elevated cards */
+  --bg-nav: #859114;               /* Olive green navbar */
+  --bg-sidebar: #A8A2B3;           /* Slightly deeper muted tone of lavender */
+  --brand-primary: #859114;        /* Primary olive green accent */
+  --brand-hover: #6F7910;          /* Slightly darker hover state */
+  --border-default: #9E98A8;       /* Subtle harmonious border for cards, inputs, dividers */
+  --border-subtle: #AEA8B7;
+
+  /* Dynamic Text Contrast & Readability */
+  --text-main: #1C1B1F;            /* Deep charcoal for primary text on light/muted surfaces */
+  --text-muted: #46434D;           /* Secondary text ensuring WCAG AA >= 4.5:1 ratio */
+  --text-on-brand: #FFFFFF;        /* Crisp white inside brand elements */
+
+  /* Typography */
   --font-primary: 'DM Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-urdu: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', Tahoma, sans-serif;
 }
@@ -13,8 +30,8 @@ body {
   font-family: var(--font-primary);
   font-size: 15px; /* In the specified 14px - 18px range */
   line-height: 1.6;
-  color: #0f172a;
-  background: radial-gradient(circle at top right, #fffbeb 0%, #f8fafc 40%, #f1f5f9 100%);
+  color: var(--text-main);
+  background-color: var(--bg-body);
   min-height: 100vh;
   margin: 0;
   padding: 0;
@@ -26,14 +43,14 @@ body {
   height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: var(--bg-surface);
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: var(--border-default);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: var(--text-muted);
 }
 
 /* High contrast touch targets for low-literacy users */
@@ -46,4 +63,39 @@ body {
 [dir="rtl"] {
   font-family: var(--font-urdu), 'Inter', sans-serif;
   text-align: right;
+}
+
+/* Card utility class */
+.app-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 8px; /* Standardized 8px */
+}
+
+.app-card-elevated {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+}
+
+.app-btn-brand {
+  background-color: var(--brand-primary);
+  color: var(--text-on-brand);
+  border-radius: 6px; /* Standardized 6px */
+  transition: background-color 0.15s ease-in-out;
+}
+.app-btn-brand:hover {
+  background-color: var(--brand-hover);
+}
+
+.app-input {
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-default);
+  border-radius: 6px;
+  color: var(--text-main);
+}
+.app-input:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 1px var(--brand-primary);
 }

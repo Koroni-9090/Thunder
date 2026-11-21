@@ -39,7 +39,17 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({
+      success: true,
       result: classification,
+      analysis: {
+        isScam: classification.is_scam,
+        is_scam: classification.is_scam,
+        confidence: classification.confidence,
+        scamType: classification.scam_type,
+        explanationSimpleEn: classification.explanation_simple,
+        explanationSimpleUr: classification.explanation_ur,
+        warningSigns: classification.warning_signs,
+      },
       reportId: report.id,
     });
   } catch (err: any) {
