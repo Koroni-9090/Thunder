@@ -165,16 +165,16 @@ export default function OfficerPage() {
 
   if (!isLoggedIn) {
     return (
-      <div className="max-w-xl mx-auto my-12 p-8 bg-[#CBC6D3] border border-[#9E98A8] rounded-lg shadow-xl text-center space-y-4 text-[#1C1B1F]">
-        <div className="w-14 h-14 rounded-full bg-[#859114] text-white flex items-center justify-center mx-auto shadow">
+      <div className="max-w-xl mx-auto my-12 p-8 bg-[#383737] border border-[#616060] rounded-lg shadow-xl text-center space-y-4 text-[#FFFFFF]">
+        <div className="w-14 h-14 rounded-full bg-[#F59E0B] text-white flex items-center justify-center mx-auto shadow">
           <Lock className="w-7 h-7" />
         </div>
-        <h2 className="text-xl font-black text-[#1C1B1F]">Authentication Required</h2>
-        <p className="text-xs text-[#46434D]">
+        <h2 className="text-xl font-black text-[#FFFFFF]">Authentication Required</h2>
+        <p className="text-xs text-[#D1D5DB]">
           To review low-confidence claims and execute officer overrides, please sign in.
         </p>
         <Link
-          href="/login"
+          href="/"
           className="inline-flex items-center gap-2 bg-[#859114] hover:bg-[#6F7910] text-white font-bold px-6 py-2.5 rounded-md text-xs shadow"
         >
           <LogIn className="w-4 h-4" />
@@ -184,26 +184,47 @@ export default function OfficerPage() {
     );
   }
 
+  if (user?.role !== 'officer' && user?.role !== 'admin') {
+    return (
+      <div className="max-w-xl mx-auto my-12 p-8 bg-[#383737] border border-[#616060] rounded-lg shadow-xl text-center space-y-4 text-white">
+        <div className="w-14 h-14 rounded-full bg-red-600 text-white flex items-center justify-center mx-auto shadow">
+          <ShieldAlert className="w-7 h-7" />
+        </div>
+        <h2 className="text-xl font-black text-white">403 Forbidden: Officer Access Denied</h2>
+        <p className="text-xs text-[#D1D5DB]">
+          You are currently signed in as <strong>{user?.name}</strong> with role <span className="uppercase font-bold text-[#F59E0B]">[{user?.role}]</span>. 
+          Case verification, audit override, and relief claim decisions are strictly restricted to Welfare Officers and Administrators.
+        </p>
+        <Link
+          href={user?.role === 'citizen' ? '/citizen' : user?.role === 'helper' ? '/helper' : user?.role === 'auditor' ? '/auditor' : '/dashboard'}
+          className="inline-flex items-center gap-2 bg-[#859114] hover:bg-[#6F7910] text-white font-bold px-6 py-2.5 rounded-md text-xs shadow"
+        >
+          <span>Return to Your Authorized Workspace</span>
+        </Link>
+      </div>
+    );
+  }
+
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6 text-[#1C1B1F]">
+    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6 text-[#FFFFFF]">
       {/* Officer Header */}
-      <div className="bg-[#CBC6D3] rounded-lg p-6 border border-[#9E98A8] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#383737] rounded-lg p-6 border border-[#616060] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#859114] mb-1">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#F59E0B] mb-1">
             <Scale className="w-4 h-4" />
             <span>Relief Verification Desk &bull; Team Thunder Command</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-[#1C1B1F]">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#FFFFFF]">
             Case Management &amp; Uncertainty Queue
           </h1>
-          <p className="text-[#46434D] text-xs sm:text-sm mt-0.5">
+          <p className="text-[#D1D5DB] text-xs sm:text-sm mt-0.5">
             Sorted by <strong>Lowest Confidence First</strong>. AI escalated cases where composite confidence fell below auto-approval threshold.
           </p>
         </div>
 
         <button
           onClick={fetchCases}
-          className="flex items-center gap-2 bg-[#859114] hover:bg-[#6F7910] text-white font-bold px-4 py-2.5 rounded-md text-xs shadow transition"
+          className="flex items-center gap-2 bg-[#F59E0B] hover:bg-[#D97706] text-white font-bold px-4 py-2.5 rounded-md text-xs shadow transition"
         >
           <RefreshCw className="w-4 h-4" />
           <span>Refresh Queue ({cases.length})</span>
@@ -230,21 +251,21 @@ export default function OfficerPage() {
       {/* Main Grid: Review Queue & Detailed Case Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Column: Priority Review List (Lowest Confidence First) */}
-        <div className="lg:col-span-5 bg-[#CBC6D3] rounded-lg p-5 border border-[#9E98A8] shadow-sm space-y-3">
-          <div className="flex items-center justify-between border-b border-[#9E98A8] pb-2.5">
-            <h2 className="font-bold text-[#1C1B1F] text-sm">Priority Review Queue</h2>
-            <span className="text-[10px] bg-[#859114] text-white font-bold px-2 py-0.5 rounded font-mono">
+        <div className="lg:col-span-5 bg-[#383737] rounded-lg p-5 border border-[#616060] shadow-sm space-y-3">
+          <div className="flex items-center justify-between border-b border-[#616060] pb-2.5">
+            <h2 className="font-bold text-[#FFFFFF] text-sm">Priority Review Queue</h2>
+            <span className="text-[10px] bg-[#F59E0B] text-white font-bold px-2 py-0.5 rounded font-mono">
               Lowest Conf First
             </span>
           </div>
 
           {isLoading ? (
-            <div className="py-12 flex items-center justify-center text-xs text-[#46434D] gap-2">
-              <RefreshCw className="w-4 h-4 animate-spin text-[#859114]" />
+            <div className="py-12 flex items-center justify-center text-xs text-[#D1D5DB] gap-2">
+              <RefreshCw className="w-4 h-4 animate-spin text-[#F59E0B]" />
               <span>Loading review queue...</span>
             </div>
           ) : cases.length === 0 ? (
-            <div className="py-12 text-center text-xs text-[#46434D]">
+            <div className="py-12 text-center text-xs text-[#D1D5DB]">
               No cases currently pending officer review.
             </div>
           ) : (
@@ -262,12 +283,12 @@ export default function OfficerPage() {
                     }}
                     className={`w-full text-left p-3 rounded-md border text-xs transition ${
                       isSelected
-                        ? 'border-[#859114] bg-white shadow-sm'
-                        : 'border-[#9E98A8] bg-[#D5D1DC] hover:border-[#859114]'
+                        ? 'border-[#F59E0B] bg-white shadow-sm'
+                        : 'border-[#616060] bg-[#2E2D2D] hover:border-[#F59E0B]'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1">
-                      <span className="font-bold text-xs text-[#1C1B1F]">
+                      <span className="font-bold text-xs text-[#FFFFFF]">
                         {c.extracted_data.fullName || c.citizen_name || 'Applicant'}
                       </span>
                       <span
@@ -283,9 +304,9 @@ export default function OfficerPage() {
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between text-xs text-[#46434D] font-mono">
+                    <div className="flex items-center justify-between text-xs text-[#D1D5DB] font-mono">
                       <span>{c.cnic_mock || 'Unknown CNIC'}</span>
-                      <span className="uppercase text-[10px] font-bold text-[#859114]">
+                      <span className="uppercase text-[10px] font-bold text-[#F59E0B]">
                         {c.status.replace('_', ' ')}
                       </span>
                     </div>
@@ -303,23 +324,23 @@ export default function OfficerPage() {
         </div>
 
         {/* Right Column: Case Management Workspace */}
-        <div className="lg:col-span-7 bg-[#D5D1DC] rounded-lg p-6 border border-[#9E98A8] shadow-sm space-y-5">
+        <div className="lg:col-span-7 bg-[#2E2D2D] rounded-lg p-6 border border-[#616060] shadow-sm space-y-5">
           {selectedCase ? (
             <div className="space-y-5">
               {/* Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#9E98A8] pb-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#616060] pb-3">
                 <div>
-                  <div className="text-xs font-mono text-[#46434D] uppercase">Case ID: {selectedCase.id}</div>
-                  <h3 className="text-lg font-bold text-[#1C1B1F]">
+                  <div className="text-xs font-mono text-[#D1D5DB] uppercase">Case ID: {selectedCase.id}</div>
+                  <h3 className="text-lg font-bold text-[#FFFFFF]">
                     {selectedCase.extracted_data.fullName || selectedCase.citizen_name}
                   </h3>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span className="text-xs bg-white text-[#1C1B1F] px-2.5 py-1 rounded-md font-mono border border-[#9E98A8]">
+                  <span className="text-xs bg-[#242323] text-white px-2.5 py-1 rounded-md font-mono border border-[#616060]">
                     Rule: {selectedCase.rule_version_id}
                   </span>
-                  <span className="text-xs bg-[#859114] text-white px-2.5 py-1 rounded-md font-bold">
+                  <span className="text-xs bg-[#F59E0B] text-white px-2.5 py-1 rounded-md font-bold">
                     Conf: {Math.round(selectedCase.confidence_score * 100)}%
                   </span>
                 </div>
@@ -327,8 +348,8 @@ export default function OfficerPage() {
 
               {/* Side-by-Side: Extracted JSON vs Auditor Trace */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                <div className="p-3 bg-white rounded-md border border-[#9E98A8] space-y-1.5">
-                  <div className="font-bold text-[#859114] text-[11px] uppercase">
+                <div className="p-3 bg-white rounded-md border border-[#616060] space-y-1.5">
+                  <div className="font-bold text-[#F59E0B] text-[11px] uppercase">
                     Extracted Document Data
                   </div>
                   <div><strong>CNIC:</strong> {selectedCase.cnic_mock}</div>
@@ -338,8 +359,8 @@ export default function OfficerPage() {
                   <div><strong>OCR Clarity:</strong> {Math.round((selectedCase.extracted_data.ocrConfidence || 0.94) * 100)}%</div>
                 </div>
 
-                <div className="p-3 bg-white rounded-md border border-[#9E98A8] space-y-1.5 font-mono text-[11px]">
-                  <div className="font-bold text-[#859114] text-[11px] uppercase font-sans">
+                <div className="p-3 bg-white rounded-md border border-[#616060] space-y-1.5 font-mono text-[11px]">
+                  <div className="font-bold text-[#F59E0B] text-[11px] uppercase font-sans">
                     Auditor Decision Trace
                   </div>
                   <div>Path: {selectedCase.auditor_trace?.decisionPath}</div>
@@ -352,16 +373,16 @@ export default function OfficerPage() {
               </div>
 
               {/* Explanation Note */}
-              <div className="p-3 bg-white rounded-md border border-[#9E98A8] text-xs">
-                <div className="font-bold text-[#46434D] text-[10px] uppercase">Plain-Language Citizen Notice:</div>
-                <p className="text-[#1C1B1F] font-medium mt-0.5">
+              <div className="p-3 bg-white rounded-md border border-[#616060] text-xs">
+                <div className="font-bold text-[#D1D5DB] text-[10px] uppercase">Plain-Language Citizen Notice:</div>
+                <p className="text-[#FFFFFF] font-medium mt-0.5">
                   {language === 'ur' ? selectedCase.citizen_explanation_ur : selectedCase.citizen_explanation_en}
                 </p>
               </div>
 
               {/* Officer Override Action Box */}
-              <div className="p-4 bg-white rounded-md border border-[#9E98A8] space-y-3">
-                <h4 className="font-bold text-xs uppercase text-[#1C1B1F]">
+              <div className="p-4 bg-white rounded-md border border-[#616060] space-y-3">
+                <h4 className="font-bold text-xs uppercase text-[#FFFFFF]">
                   Officer Override &amp; Mandatory Reason Note
                 </h4>
                 <textarea
@@ -369,14 +390,14 @@ export default function OfficerPage() {
                   value={overrideNote}
                   onChange={(e) => setOverrideNote(e.target.value)}
                   placeholder="Enter mandatory reasoning note for audit trail (e.g. 'Verified physical union council death certificate for widow grant')..."
-                  className="w-full p-2.5 rounded-md border border-[#9E98A8] text-xs text-[#1C1B1F] focus:outline-none focus:border-[#859114]"
+                  className="w-full p-2.5 rounded-md border border-[#616060] text-xs text-[#FFFFFF] focus:outline-none focus:border-[#F59E0B]"
                 />
 
                 <div className="flex flex-wrap gap-2">
                   <button
                     onClick={() => handleOfficerDecision('approve')}
                     disabled={isSubmitting}
-                    className="flex-1 py-2 px-3 rounded-md bg-[#859114] hover:bg-[#6F7910] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow"
+                    className="flex-1 py-2 px-3 rounded-md bg-[#F59E0B] hover:bg-[#D97706] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow"
                   >
                     <CheckCircle2 className="w-3.5 h-3.5" />
                     <span>Approve Relief Grant (Disburse Raast)</span>
@@ -394,11 +415,11 @@ export default function OfficerPage() {
               </div>
 
               {/* Workflow Actions: Assign, Escalate, Close */}
-              <div className="pt-2 border-t border-[#9E98A8] flex flex-wrap gap-2 text-xs">
+              <div className="pt-2 border-t border-[#616060] flex flex-wrap gap-2 text-xs">
                 <button
                   onClick={handleAssign}
                   disabled={isSubmitting}
-                  className="py-1.5 px-3 rounded-md bg-white hover:bg-slate-50 border border-[#9E98A8] font-bold text-[#1C1B1F] shadow-sm"
+                  className="py-1.5 px-3 rounded-md bg-white hover:bg-slate-50 border border-[#616060] font-bold text-[#FFFFFF] shadow-sm"
                 >
                   Assign to Field Helper
                 </button>
@@ -406,7 +427,7 @@ export default function OfficerPage() {
                 <button
                   onClick={handleEscalate}
                   disabled={isSubmitting}
-                  className="py-1.5 px-3 rounded-md bg-white hover:bg-slate-50 border border-[#9E98A8] font-bold text-[#1C1B1F] shadow-sm"
+                  className="py-1.5 px-3 rounded-md bg-white hover:bg-slate-50 border border-[#616060] font-bold text-[#FFFFFF] shadow-sm"
                 >
                   Escalate to Senior Desk
                 </button>
@@ -414,14 +435,14 @@ export default function OfficerPage() {
                 <button
                   onClick={() => handleClose('approved')}
                   disabled={isSubmitting}
-                  className="py-1.5 px-3 rounded-md bg-white hover:bg-slate-50 border border-[#9E98A8] font-bold text-[#1C1B1F] shadow-sm"
+                  className="py-1.5 px-3 rounded-md bg-white hover:bg-slate-50 border border-[#616060] font-bold text-[#FFFFFF] shadow-sm"
                 >
                   Close Case (Resolved)
                 </button>
               </div>
             </div>
           ) : (
-            <div className="py-20 text-center text-xs text-[#46434D]">
+            <div className="py-20 text-center text-xs text-[#D1D5DB]">
               Select a case from the priority review queue on the left to inspect documents and take action.
             </div>
           )}

@@ -186,7 +186,7 @@ export default function DpiAssistantChat() {
       )}
 
       {isOpen && (
-        <div className="w-[360px] sm:w-[420px] h-[540px] bg-[#D5D1DC] border border-[#9E98A8] rounded-lg shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 text-[#1C1B1F]">
+        <div className="w-[360px] sm:w-[420px] h-[540px] bg-[#383737] border border-[#616060] rounded-lg shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 text-white">
           {/* Header */}
           <div className="bg-[#859114] p-3.5 border-b border-[#6F7910] flex items-center justify-between text-white">
             <div className="flex items-center gap-2.5">
@@ -226,7 +226,7 @@ export default function DpiAssistantChat() {
           </div>
 
           {/* Messages Body */}
-          <div className="flex-1 p-3 overflow-y-auto space-y-3 bg-[#BEB9C7]/30">
+          <div className="flex-1 p-3 overflow-y-auto space-y-3 bg-[#2E2D2D]">
             {messages.map((m) => (
               <div
                 key={m.id}
@@ -237,12 +237,12 @@ export default function DpiAssistantChat() {
                     m.sender === 'user'
                       ? 'bg-[#859114] text-white font-medium shadow-sm'
                       : m.isUncertain
-                      ? 'bg-amber-100 border border-amber-300 text-amber-950 font-medium'
-                      : 'bg-white text-[#1C1B1F] border border-[#9E98A8] shadow-sm'
+                      ? 'bg-amber-950/80 border border-amber-500/60 text-amber-200 font-medium'
+                      : 'bg-[#4A4949] text-white border border-[#616060] shadow-sm'
                   }`}
                 >
                   {m.isUncertain && (
-                    <div className="flex items-center gap-1 text-[11px] font-bold text-amber-900 mb-1">
+                    <div className="flex items-center gap-1 text-[11px] font-bold text-amber-300 mb-1">
                       <AlertCircle className="w-3.5 h-3.5" />
                       <span>{language === 'ur' ? 'غیر یقینی کی اطلاع: میں مکمل پراعتماد نہیں ہوں' : 'Uncertainty Notice: "I am not sure"'}</span>
                     </div>
@@ -250,11 +250,11 @@ export default function DpiAssistantChat() {
                   <p className="leading-relaxed whitespace-pre-wrap">{m.text}</p>
                 </div>
                 <div className="flex items-center gap-2 mt-1 px-1">
-                  <span className="text-[10px] text-[#46434D]">{m.timestamp}</span>
+                  <span className="text-[10px] text-[#A3A3A3]">{m.timestamp}</span>
                   {m.sender === 'assistant' && (
                     <button
                       onClick={() => speakText(m.text, language)}
-                      className="text-[#46434D] hover:text-[#859114] transition-colors"
+                      className="text-[#D1D5DB] hover:text-[#FEF08A] transition-colors"
                       title="Read aloud"
                     >
                       <Volume2 className="w-3.5 h-3.5" />
@@ -265,7 +265,7 @@ export default function DpiAssistantChat() {
             ))}
 
             {loading && (
-              <div className="flex items-center gap-2 text-xs text-[#46434D] italic bg-white/60 p-2 rounded-md border border-[#9E98A8]">
+              <div className="flex items-center gap-2 text-xs text-[#D1D5DB] italic bg-[#383737] p-2 rounded-md border border-[#616060]">
                 <div className="w-2 h-2 rounded-full bg-[#859114] animate-ping"></div>
                 Analyzing DPI regulations &amp; checking risk router...
               </div>
@@ -274,12 +274,12 @@ export default function DpiAssistantChat() {
           </div>
 
           {/* Quick Prompts */}
-          <div className="p-2 bg-[#CBC6D3] border-t border-[#9E98A8] flex gap-1.5 overflow-x-auto scrollbar-none">
+          <div className="p-2 bg-[#2E2D2D] border-t border-[#616060] flex gap-1.5 overflow-x-auto scrollbar-none">
             {quickQuestions.map((q, idx) => (
               <button
                 key={idx}
                 onClick={() => handleSendMessage(q)}
-                className="text-[11px] whitespace-nowrap bg-white hover:bg-slate-50 text-[#1C1B1F] px-2.5 py-1 rounded-md border border-[#9E98A8] transition-colors font-medium shadow-sm"
+                className="text-[11px] whitespace-nowrap bg-[#383737] hover:bg-[#4A4949] text-white px-2.5 py-1 rounded-md border border-[#616060] transition-colors font-medium shadow-sm"
               >
                 {q}
               </button>
@@ -287,13 +287,13 @@ export default function DpiAssistantChat() {
           </div>
 
           {/* Input & Voice Controls */}
-          <div className="p-3 bg-[#D5D1DC] border-t border-[#9E98A8] flex items-center gap-2">
+          <div className="p-3 bg-[#383737] border-t border-[#616060] flex items-center gap-2">
             <button
               onClick={handleToggleListening}
               className={`p-2.5 rounded-md border transition-all ${
                 isListening
                   ? 'bg-rose-600 text-white border-rose-700 animate-pulse'
-                  : 'bg-white text-[#859114] border-[#9E98A8] hover:bg-slate-50 shadow-sm'
+                  : 'bg-[#2A2929] text-white border-[#616060] hover:bg-[#4A4949] shadow-sm'
               }`}
               title="Speak in Urdu or English (Web Speech STT)"
             >
@@ -310,7 +310,7 @@ export default function DpiAssistantChat() {
                   ? 'یہاں اردو یا انگریزی میں سوال لکھیں...'
                   : 'Ask DPI rules, scam alerts, or say hello...'
               }
-              className="flex-1 bg-white text-xs text-[#1C1B1F] rounded-md px-3 py-2.5 border border-[#9E98A8] focus:outline-none focus:border-[#859114] placeholder:text-[#46434D]/60 shadow-inner"
+              className="flex-1 bg-[#2A2929] text-xs text-white rounded-md px-3 py-2.5 border border-[#616060] focus:outline-none focus:border-[#859114] placeholder:text-[#A3A3A3] shadow-inner"
             />
 
             <button

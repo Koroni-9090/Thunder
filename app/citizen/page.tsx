@@ -363,16 +363,16 @@ export default function CitizenPage() {
   // Auth gate check
   if (!isLoggedIn) {
     return (
-      <div className="max-w-xl mx-auto my-12 p-8 bg-[#CBC6D3] border border-[#9E98A8] rounded-lg shadow-xl text-center space-y-4 text-[#1C1B1F]">
-        <div className="w-14 h-14 rounded-full bg-[#859114] text-white flex items-center justify-center mx-auto shadow">
+      <div className="max-w-xl mx-auto my-12 p-8 bg-[#383737] border border-[#616060] rounded-lg shadow-xl text-center space-y-4 text-[#FFFFFF]">
+        <div className="w-14 h-14 rounded-full bg-[#F59E0B] text-white flex items-center justify-center mx-auto shadow">
           <Lock className="w-7 h-7" />
         </div>
-        <h2 className="text-xl font-black text-[#1C1B1F]">Authentication Required</h2>
-        <p className="text-xs text-[#46434D]">
+        <h2 className="text-xl font-black text-[#FFFFFF]">Authentication Required</h2>
+        <p className="text-xs text-[#D1D5DB]">
           To protect citizen records and personal data privacy, you must sign in before accessing the Citizen Portal.
         </p>
         <Link
-          href="/login"
+          href="/"
           className="inline-flex items-center gap-2 bg-[#859114] hover:bg-[#6F7910] text-white font-bold px-6 py-2.5 rounded-md text-xs shadow"
         >
           <LogIn className="w-4 h-4" />
@@ -383,7 +383,7 @@ export default function CitizenPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6 text-[#1C1B1F]">
+    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6 text-[#FFFFFF]">
       {/* Hidden Native File Input that opens OS File Explorer */}
       <input
         type="file"
@@ -394,17 +394,17 @@ export default function CitizenPage() {
       />
 
       {/* Top Banner */}
-      <div className="bg-[#CBC6D3] rounded-lg p-6 border border-[#9E98A8] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#383737] rounded-lg p-6 border border-[#616060] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#859114] bg-white px-2.5 py-0.5 rounded-md mb-2 border border-[#9E98A8]">
-            <span className="w-2 h-2 rounded-full bg-[#859114] animate-pulse"></span>
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#F59E0B] bg-white px-2.5 py-0.5 rounded-md mb-2 border border-[#616060]">
+            <span className="w-2 h-2 rounded-full bg-[#F59E0B] animate-pulse"></span>
             <span>CITIZEN PORTAL &mdash; LOW-LITERACY &amp; VOICE-FIRST</span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-black text-[#1C1B1F]">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#FFFFFF]">
             {language === 'ur' ? `خوش آمدید، ${nameInput || 'شہری'}` : `Welcome, ${nameInput || 'Citizen'}`}
           </h1>
-          <p className="text-[#46434D] text-xs sm:text-sm mt-0.5">
+          <p className="text-[#D1D5DB] text-xs sm:text-sm mt-0.5">
             Apply for Emergency Relief, verify identity, and check suspicious SMS messages.
           </p>
         </div>
@@ -419,7 +419,7 @@ export default function CitizenPage() {
             if (isSpeaking) stopSpeaking();
             else speak(intro, language);
           }}
-          className="flex items-center gap-2 bg-white hover:bg-slate-50 text-[#1C1B1F] font-bold px-4 py-2.5 rounded-md border border-[#9E98A8] shadow-sm transition"
+          className="flex items-center gap-2 bg-white hover:bg-slate-50 text-[#FFFFFF] font-bold px-4 py-2.5 rounded-md border border-[#616060] shadow-sm transition"
         >
           {isSpeaking ? (
             <>
@@ -428,7 +428,7 @@ export default function CitizenPage() {
             </>
           ) : (
             <>
-              <Volume2 className="w-4 h-4 text-[#859114]" />
+              <Volume2 className="w-4 h-4 text-[#F59E0B]" />
               <span className="text-xs">Listen Audio Guide</span>
             </>
           )}
@@ -441,8 +441,8 @@ export default function CitizenPage() {
           onClick={() => setActiveTab('claim')}
           className={`p-3.5 rounded-md font-bold text-xs sm:text-sm flex items-center justify-center gap-2 border transition shadow-sm ${
             activeTab === 'claim'
-              ? 'bg-[#859114] text-white border-[#6F7910]'
-              : 'bg-[#D5D1DC] text-[#1C1B1F] border-[#9E98A8] hover:bg-[#CBC6D3]'
+              ? 'bg-[#F59E0B] text-white border-[#D97706]'
+              : 'bg-[#2E2D2D] text-[#FFFFFF] border-[#616060] hover:bg-[#383737]'
           }`}
         >
           <FileCheck className="w-4 h-4 flex-shrink-0" />
@@ -453,8 +453,8 @@ export default function CitizenPage() {
           onClick={() => setActiveTab('scam')}
           className={`p-3.5 rounded-md font-bold text-xs sm:text-sm flex items-center justify-center gap-2 border transition shadow-sm ${
             activeTab === 'scam'
-              ? 'bg-[#859114] text-white border-[#6F7910]'
-              : 'bg-[#D5D1DC] text-[#1C1B1F] border-[#9E98A8] hover:bg-[#CBC6D3]'
+              ? 'bg-[#F59E0B] text-white border-[#D97706]'
+              : 'bg-[#2E2D2D] text-[#FFFFFF] border-[#616060] hover:bg-[#383737]'
           }`}
         >
           <ShieldAlert className="w-4 h-4 flex-shrink-0" />
@@ -465,8 +465,8 @@ export default function CitizenPage() {
           onClick={() => setActiveTab('consent')}
           className={`p-3.5 rounded-md font-bold text-xs sm:text-sm flex items-center justify-center gap-2 border transition shadow-sm ${
             activeTab === 'consent'
-              ? 'bg-[#859114] text-white border-[#6F7910]'
-              : 'bg-[#D5D1DC] text-[#1C1B1F] border-[#9E98A8] hover:bg-[#CBC6D3]'
+              ? 'bg-[#F59E0B] text-white border-[#D97706]'
+              : 'bg-[#2E2D2D] text-[#FFFFFF] border-[#616060] hover:bg-[#383737]'
           }`}
         >
           <Lock className="w-4 h-4 flex-shrink-0" />
@@ -479,12 +479,12 @@ export default function CitizenPage() {
         <div className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Left 8 Cols: Apply for Emergency Relief Grant */}
-            <div className="lg:col-span-8 bg-[#CBC6D3] rounded-lg p-6 border border-[#9E98A8] shadow-sm space-y-5">
+            <div className="lg:col-span-8 bg-[#383737] rounded-lg p-6 border border-[#616060] shadow-sm space-y-5">
               <div>
-                <h2 className="text-lg sm:text-xl font-bold text-[#1C1B1F]">
+                <h2 className="text-lg sm:text-xl font-bold text-[#FFFFFF]">
                   Apply for Emergency Relief Grant
                 </h2>
-                <p className="text-[#46434D] text-xs mt-0.5">
+                <p className="text-[#D1D5DB] text-xs mt-0.5">
                   Select a test scenario or click below to upload your real document from file explorer.
                 </p>
               </div>
@@ -496,13 +496,13 @@ export default function CitizenPage() {
                   onClick={() => handlePresetSelect('widow')}
                   className={`p-3 rounded-md border text-left transition ${
                     selectedPreset === 'widow'
-                      ? 'border-[#859114] bg-white text-[#1C1B1F] font-bold shadow-sm'
-                      : 'border-[#9E98A8] bg-[#D5D1DC] text-[#1C1B1F]'
+                      ? 'border-[#F59E0B] bg-[#242323] text-white font-bold shadow-sm'
+                      : 'border-[#616060] bg-[#2E2D2D] text-[#FFFFFF]'
                   }`}
                 >
-                  <div className="text-[10px] uppercase font-bold text-[#859114]">Scenario A</div>
+                  <div className="text-[10px] uppercase font-bold text-[#F59E0B]">Scenario A</div>
                   <div className="font-bold text-xs">Rashida Bibi (Widow)</div>
-                  <div className="text-[10px] text-[#46434D]">Auto-Approve &ge; 85%</div>
+                  <div className="text-[10px] text-[#D1D5DB]">Auto-Approve &ge; 85%</div>
                 </button>
 
                 <button
@@ -510,13 +510,13 @@ export default function CitizenPage() {
                   onClick={() => handlePresetSelect('variant')}
                   className={`p-3 rounded-md border text-left transition ${
                     selectedPreset === 'variant'
-                      ? 'border-[#859114] bg-white text-[#1C1B1F] font-bold shadow-sm'
-                      : 'border-[#9E98A8] bg-[#D5D1DC] text-[#1C1B1F]'
+                      ? 'border-[#F59E0B] bg-[#242323] text-white font-bold shadow-sm'
+                      : 'border-[#616060] bg-[#2E2D2D] text-[#FFFFFF]'
                   }`}
                 >
-                  <div className="text-[10px] uppercase font-bold text-[#859114]">Scenario B</div>
+                  <div className="text-[10px] uppercase font-bold text-[#F59E0B]">Scenario B</div>
                   <div className="font-bold text-xs">Mohammad Ali (Variant)</div>
-                  <div className="text-[10px] text-[#46434D]">&ldquo;I Am Not Sure&rdquo; Handoff</div>
+                  <div className="text-[10px] text-[#D1D5DB]">&ldquo;I Am Not Sure&rdquo; Handoff</div>
                 </button>
 
                 <button
@@ -524,13 +524,13 @@ export default function CitizenPage() {
                   onClick={() => handlePresetSelect('fraud')}
                   className={`p-3 rounded-md border text-left transition ${
                     selectedPreset === 'fraud'
-                      ? 'border-[#859114] bg-white text-[#1C1B1F] font-bold shadow-sm'
-                      : 'border-[#9E98A8] bg-[#D5D1DC] text-[#1C1B1F]'
+                      ? 'border-[#F59E0B] bg-[#242323] text-white font-bold shadow-sm'
+                      : 'border-[#616060] bg-[#2E2D2D] text-[#FFFFFF]'
                   }`}
                 >
                   <div className="text-[10px] uppercase font-bold text-rose-700">Scenario C</div>
                   <div className="font-bold text-xs">Perveen (Syndicate)</div>
-                  <div className="text-[10px] text-[#46434D]">Auto-Quarantine Block</div>
+                  <div className="text-[10px] text-[#D1D5DB]">Auto-Quarantine Block</div>
                 </button>
               </div>
 
@@ -539,22 +539,22 @@ export default function CitizenPage() {
                 {/* 1. Upload Documents - REAL FILE EXPLORER PICKER */}
                 <div
                   onClick={() => fileInputRef.current?.click()}
-                  className="p-4 rounded-lg border-2 border-dashed border-[#859114] bg-[#D5D1DC] hover:bg-[#CBC6D3] cursor-pointer flex flex-col items-center justify-center text-center space-y-3 transition"
+                  className="p-4 rounded-lg border-2 border-dashed border-[#F59E0B] bg-[#2E2D2D] hover:bg-[#383737] cursor-pointer flex flex-col items-center justify-center text-center space-y-3 transition"
                   title="Click to open File Explorer and choose document"
                 >
-                  <span className="font-bold text-xs uppercase tracking-wider text-[#859114] self-start">
+                  <span className="font-bold text-xs uppercase tracking-wider text-[#F59E0B] self-start">
                     1. Upload Document (Images / PDF)
                   </span>
 
-                  <div className="w-12 h-12 rounded-lg bg-white shadow-sm flex items-center justify-center text-[#859114] border border-[#9E98A8]">
+                  <div className="w-12 h-12 rounded-lg bg-white shadow-sm flex items-center justify-center text-[#F59E0B] border border-[#616060]">
                     <Upload className="w-6 h-6" />
                   </div>
 
                   <div>
-                    <div className="font-bold text-xs text-[#1C1B1F]">
+                    <div className="font-bold text-xs text-[#FFFFFF]">
                       {uploadedFileName ? uploadedFileName : 'Click to Open File Explorer'}
                     </div>
-                    <div className="text-[11px] text-[#46434D]">
+                    <div className="text-[11px] text-[#D1D5DB]">
                       Supports CNIC, B-Form, death cert, scans or photos
                     </div>
                   </div>
@@ -566,57 +566,57 @@ export default function CitizenPage() {
                       fileInputRef.current?.click();
                     }}
                     disabled={isProcessingOcr}
-                    className="py-2 px-4 rounded-md bg-[#859114] hover:bg-[#6F7910] text-white font-bold text-xs shadow-sm transition"
+                    className="py-2 px-4 rounded-md bg-[#F59E0B] hover:bg-[#D97706] text-white font-bold text-xs shadow-sm transition"
                   >
                     {isProcessingOcr ? 'Scanning with OCR...' : 'Choose File from Computer'}
                   </button>
 
                   {ocrStatus && (
-                    <div className="text-[11px] font-bold text-[#1C1B1F] bg-white p-2 rounded-md border border-[#9E98A8] w-full text-left">
+                    <div className="text-[11px] font-bold text-[#FFFFFF] bg-white p-2 rounded-md border border-[#616060] w-full text-left">
                       {ocrStatus}
                     </div>
                   )}
 
                   {uploadedPreview && (
-                    <div className="w-full mt-2 rounded-md overflow-hidden border border-[#9E98A8] max-h-36">
+                    <div className="w-full mt-2 rounded-md overflow-hidden border border-[#616060] max-h-36">
                       <img src={uploadedPreview} alt="Uploaded Document Preview" className="w-full h-auto object-cover" />
                     </div>
                   )}
                 </div>
 
                 {/* 2. AI Matcher Form */}
-                <div className="p-4 rounded-lg border border-[#9E98A8] bg-white space-y-3">
-                  <span className="font-bold text-xs uppercase tracking-wider text-[#1C1B1F] block">
+                <div className="p-4 rounded-lg border border-[#616060] bg-white space-y-3">
+                  <span className="font-bold text-xs uppercase tracking-wider text-[#FFFFFF] block">
                     2. AI Matcher &amp; Verified Data
                   </span>
 
                   <div>
-                    <label className="text-[11px] font-bold text-[#46434D] block mb-1">Full Legal Name:</label>
+                    <label className="text-[11px] font-bold text-[#D1D5DB] block mb-1">Full Legal Name:</label>
                     <input
                       type="text"
                       value={nameInput}
                       onChange={(e) => setNameInput(e.target.value)}
-                      className="w-full h-9 px-3 rounded-md border border-[#9E98A8] text-xs font-bold text-[#1C1B1F]"
+                      className="w-full h-9 px-3 rounded-md border border-[#616060] text-xs font-bold text-[#FFFFFF]"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-bold text-[#46434D] block mb-1">CNIC Number:</label>
+                    <label className="text-[11px] font-bold text-[#D1D5DB] block mb-1">CNIC Number:</label>
                     <input
                       type="text"
                       value={cnicInput}
                       onChange={(e) => setCnicInput(e.target.value)}
-                      className="w-full h-9 px-3 rounded-md border border-[#9E98A8] text-xs font-mono text-[#1C1B1F]"
+                      className="w-full h-9 px-3 rounded-md border border-[#616060] text-xs font-mono text-[#FFFFFF]"
                     />
                   </div>
 
                   <div>
-                    <label className="text-[11px] font-bold text-[#46434D] block mb-1">Monthly Income (PKR):</label>
+                    <label className="text-[11px] font-bold text-[#D1D5DB] block mb-1">Monthly Income (PKR):</label>
                     <input
                       type="number"
                       value={incomeInput}
                       onChange={(e) => setIncomeInput(e.target.value)}
-                      className="w-full h-9 px-3 rounded-md border border-[#9E98A8] text-xs font-bold text-[#1C1B1F]"
+                      className="w-full h-9 px-3 rounded-md border border-[#616060] text-xs font-bold text-[#FFFFFF]"
                     />
                   </div>
                 </div>
@@ -633,7 +633,7 @@ export default function CitizenPage() {
                 type="button"
                 onClick={handleClaimSubmit}
                 disabled={isSubmittingClaim}
-                className="w-full py-3.5 px-4 rounded-md bg-[#859114] hover:bg-[#6F7910] text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2 disabled:opacity-60"
+                className="w-full py-3.5 px-4 rounded-md bg-[#F59E0B] hover:bg-[#D97706] text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2 disabled:opacity-60"
               >
                 {isSubmittingClaim ? (
                   <>
@@ -650,10 +650,10 @@ export default function CitizenPage() {
             </div>
 
             {/* Right 4 Cols: Audio Readout & Info */}
-            <div className="lg:col-span-4 bg-[#D5D1DC] rounded-lg p-6 border border-[#9E98A8] shadow-sm flex flex-col justify-between space-y-4">
+            <div className="lg:col-span-4 bg-[#2E2D2D] rounded-lg p-6 border border-[#616060] shadow-sm flex flex-col justify-between space-y-4">
               <div>
-                <h3 className="text-base font-bold text-[#1C1B1F] mb-1">Assistant &amp; Audio Readout</h3>
-                <p className="text-xs text-[#46434D]">
+                <h3 className="text-base font-bold text-[#FFFFFF] mb-1">Assistant &amp; Audio Readout</h3>
+                <p className="text-xs text-[#D1D5DB]">
                   Dual-language voice assistance (Urdu &amp; English) with young man voice timbre.
                 </p>
 
@@ -667,7 +667,7 @@ export default function CitizenPage() {
                         language
                       )
                     }
-                    className="w-10 h-10 rounded-full bg-[#859114] text-white flex items-center justify-center shadow hover:bg-[#6F7910] transition"
+                    className="w-10 h-10 rounded-full bg-[#F59E0B] text-white flex items-center justify-center shadow hover:bg-[#D97706] transition"
                     title="Play voice"
                   >
                     <Volume2 className="w-4 h-4" />
@@ -675,7 +675,7 @@ export default function CitizenPage() {
 
                   <button
                     onClick={stopSpeaking}
-                    className="w-10 h-10 rounded-full bg-[#1C1B1F] text-white flex items-center justify-center shadow hover:bg-black transition"
+                    className="w-10 h-10 rounded-full bg-[#FFFFFF] text-white flex items-center justify-center shadow hover:bg-black transition"
                     title="Stop audio"
                   >
                     <VolumeX className="w-4 h-4" />
@@ -684,7 +684,7 @@ export default function CitizenPage() {
                   <button
                     onClick={handleToggleMic}
                     className={`w-10 h-10 rounded-full flex items-center justify-center shadow transition ${
-                      isListeningSms ? 'bg-red-600 text-white animate-pulse' : 'bg-white text-[#859114] border border-[#9E98A8]'
+                      isListeningSms ? 'bg-red-600 text-white animate-pulse' : 'bg-white text-[#F59E0B] border border-[#616060]'
                     }`}
                     title="Speech input"
                   >
@@ -692,15 +692,15 @@ export default function CitizenPage() {
                   </button>
                 </div>
 
-                <div className="p-3 bg-white rounded-md border border-[#9E98A8] text-xs text-[#1C1B1F] space-y-1">
-                  <div className="font-bold text-[#859114]">Asymmetric Risk Principle:</div>
-                  <p className="text-[11px] text-[#46434D]">
+                <div className="p-3 bg-white rounded-md border border-[#616060] text-xs text-[#FFFFFF] space-y-1">
+                  <div className="font-bold text-[#F59E0B]">Asymmetric Risk Principle:</div>
+                  <p className="text-[11px] text-[#D1D5DB]">
                     &ldquo;Wrong approvals cost more than slow approvals.&rdquo; Name spelling variations (Mohammad vs Muhammad) are safely capped to 58% confidence and routed to Human Officer Tariq.
                   </p>
                 </div>
               </div>
 
-              <div className="p-2.5 bg-[#859114]/15 border border-[#859114]/40 rounded-md text-[11px] text-[#1C1B1F] font-bold">
+              <div className="p-2.5 bg-[#F59E0B]/15 border border-[#F59E0B]/40 rounded-md text-[11px] text-[#FFFFFF] font-bold">
                 ⚡ Team Thunder DPI Engine &bull; Zero Hallucination
               </div>
             </div>
@@ -708,11 +708,11 @@ export default function CitizenPage() {
 
           {/* Decision Result Card */}
           {recentCase && (
-            <div className="bg-white rounded-lg p-6 border border-[#9E98A8] shadow-md space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#9E98A8]">
+            <div className="bg-white rounded-lg p-6 border border-[#616060] shadow-md space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#616060]">
                 <div>
-                  <span className="text-xs font-mono uppercase text-[#46434D]">Case ID: {recentCase.id}</span>
-                  <h3 className="text-lg font-bold text-[#1C1B1F]">AI Risk Evaluation Decision</h3>
+                  <span className="text-xs font-mono uppercase text-[#D1D5DB]">Case ID: {recentCase.id}</span>
+                  <h3 className="text-lg font-bold text-[#FFFFFF]">AI Risk Evaluation Decision</h3>
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -731,16 +731,16 @@ export default function CitizenPage() {
                       REJECTED
                     </span>
                   )}
-                  <span className="text-xs font-mono font-bold text-[#46434D] bg-[#D5D1DC] px-2 py-1 rounded-md">
+                  <span className="text-xs font-mono font-bold text-[#D1D5DB] bg-[#2E2D2D] px-2 py-1 rounded-md">
                     Confidence: {Math.round(recentCase.confidence_score * 100)}%
                   </span>
                 </div>
               </div>
 
-              <div className="p-4 bg-[#D5D1DC] rounded-md border border-[#9E98A8] flex items-center justify-between gap-4">
+              <div className="p-4 bg-[#2E2D2D] rounded-md border border-[#616060] flex items-center justify-between gap-4">
                 <div>
-                  <div className="text-[10px] uppercase font-bold text-[#46434D]">Plain-Language Citizen Explanation</div>
-                  <p className="text-sm font-bold text-[#1C1B1F] mt-0.5">
+                  <div className="text-[10px] uppercase font-bold text-[#D1D5DB]">Plain-Language Citizen Explanation</div>
+                  <p className="text-sm font-bold text-[#FFFFFF] mt-0.5">
                     {language === 'ur' ? recentCase.citizen_explanation_ur : recentCase.citizen_explanation_en}
                   </p>
                 </div>
@@ -751,7 +751,7 @@ export default function CitizenPage() {
                       language
                     )
                   }
-                  className="w-9 h-9 rounded-full bg-[#859114] text-white flex items-center justify-center flex-shrink-0 shadow hover:bg-[#6F7910]"
+                  className="w-9 h-9 rounded-full bg-[#F59E0B] text-white flex items-center justify-center flex-shrink-0 shadow hover:bg-[#D97706]"
                   title="Listen"
                 >
                   <Volume2 className="w-4 h-4" />
@@ -764,12 +764,12 @@ export default function CitizenPage() {
 
       {/* TAB 2: SCAM SMS CHECKER */}
       {activeTab === 'scam' && (
-        <div className="bg-[#CBC6D3] rounded-lg p-6 sm:p-8 border border-[#9E98A8] shadow-sm space-y-6">
+        <div className="bg-[#383737] rounded-lg p-6 sm:p-8 border border-[#616060] shadow-sm space-y-6">
           <div>
-            <h2 className="text-lg sm:text-xl font-bold text-[#1C1B1F]">
+            <h2 className="text-lg sm:text-xl font-bold text-[#FFFFFF]">
               Verify Suspicious &ldquo;BISP / Raast&rdquo; SMS
             </h2>
-            <p className="text-[#46434D] text-xs mt-0.5">
+            <p className="text-[#D1D5DB] text-xs mt-0.5">
               Paste received SMS to evaluate against official DPI short-code registries (8171).
             </p>
           </div>
@@ -780,14 +780,14 @@ export default function CitizenPage() {
               value={smsText}
               onChange={(e) => setSmsText(e.target.value)}
               placeholder="Paste SMS text here or tap mic to speak..."
-              className="w-full p-3.5 rounded-md border border-[#9E98A8] bg-white text-xs sm:text-sm text-[#1C1B1F] focus:outline-none focus:border-[#859114] shadow-inner"
+              className="w-full p-3.5 rounded-md border border-[#616060] bg-white text-xs sm:text-sm text-[#FFFFFF] focus:outline-none focus:border-[#F59E0B] shadow-inner"
             />
 
             <button
               type="button"
               onClick={handleToggleMic}
               className={`absolute bottom-3 right-3 flex items-center justify-center w-9 h-9 rounded-full shadow transition ${
-                isListeningSms ? 'bg-red-600 text-white animate-pulse' : 'bg-[#859114] text-white'
+                isListeningSms ? 'bg-red-600 text-white animate-pulse' : 'bg-[#F59E0B] text-white'
               }`}
               title="Tap to speak SMS"
             >
@@ -798,7 +798,7 @@ export default function CitizenPage() {
           <button
             onClick={handleCheckScam}
             disabled={isAnalyzingSms}
-            className="w-full flex items-center justify-center gap-2 bg-[#859114] hover:bg-[#6F7910] text-white font-bold text-xs sm:text-sm py-3 px-4 rounded-md shadow-md transition disabled:opacity-60"
+            className="w-full flex items-center justify-center gap-2 bg-[#F59E0B] hover:bg-[#D97706] text-white font-bold text-xs sm:text-sm py-3 px-4 rounded-md shadow-md transition disabled:opacity-60"
           >
             {isAnalyzingSms ? (
               <>
@@ -846,7 +846,7 @@ export default function CitizenPage() {
                         : scamResult.explanationSimpleEn || scamResult.explanation_simple;
                     speak(text, language);
                   }}
-                  className="px-3 py-1.5 rounded-md bg-[#859114] text-white text-xs font-bold flex items-center gap-1.5 shadow"
+                  className="px-3 py-1.5 rounded-md bg-[#F59E0B] text-white text-xs font-bold flex items-center gap-1.5 shadow"
                 >
                   <Volume2 className="w-3.5 h-3.5" />
                   <span>Listen Warning</span>
@@ -876,43 +876,43 @@ export default function CitizenPage() {
 
       {/* TAB 3: CONSENT LIFECYCLE (SEE, SHARE, WITHDRAW, CORRECT) */}
       {activeTab === 'consent' && (
-        <div className="bg-[#CBC6D3] rounded-lg p-6 sm:p-8 border border-[#9E98A8] shadow-sm space-y-6">
+        <div className="bg-[#383737] rounded-lg p-6 sm:p-8 border border-[#616060] shadow-sm space-y-6">
           <div>
-            <h2 className="text-lg sm:text-xl font-bold text-[#1C1B1F]">
+            <h2 className="text-lg sm:text-xl font-bold text-[#FFFFFF]">
               Consent Management &amp; Data Rectification
             </h2>
-            <p className="text-[#46434D] text-xs mt-0.5">
+            <p className="text-[#D1D5DB] text-xs mt-0.5">
               Full consent lifecycle under DPI Data Sovereignty: See permissions, Share, Withdraw (403 block), and Correct inaccuracies.
             </p>
           </div>
 
           {consentAlert && (
-            <div className="p-3.5 rounded-md bg-white border border-[#859114] text-[#1C1B1F] font-bold text-xs flex items-center gap-2 shadow">
-              <ShieldCheck className="w-4 h-4 text-[#859114] flex-shrink-0" />
+            <div className="p-3.5 rounded-md bg-white border border-[#F59E0B] text-[#FFFFFF] font-bold text-xs flex items-center gap-2 shadow">
+              <ShieldCheck className="w-4 h-4 text-[#F59E0B] flex-shrink-0" />
               <span>{consentAlert}</span>
             </div>
           )}
 
           <div className="space-y-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#46434D]">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#D1D5DB]">
               Active Role Permissions &amp; Access Controls
             </h3>
 
             {isLoadingConsents ? (
-              <p className="text-xs text-[#46434D]">Loading consent states...</p>
+              <p className="text-xs text-[#D1D5DB]">Loading consent states...</p>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {consents.map((c) => (
                   <div
                     key={c.id}
-                    className="p-4 rounded-md bg-white border border-[#9E98A8] flex items-center justify-between shadow-sm"
+                    className="p-4 rounded-md bg-white border border-[#616060] flex items-center justify-between shadow-sm"
                   >
                     <div>
-                      <div className="font-bold text-xs text-[#1C1B1F] uppercase">
+                      <div className="font-bold text-xs text-[#FFFFFF] uppercase">
                         Role: {c.granted_to_role}
                       </div>
-                      <div className="text-[11px] text-[#46434D]">Scope: {c.scope}</div>
-                      <div className="text-[10px] text-[#859114] font-bold mt-1">
+                      <div className="text-[11px] text-[#D1D5DB]">Scope: {c.scope}</div>
+                      <div className="text-[10px] text-[#F59E0B] font-bold mt-1">
                         {c.is_active ? 'Active on Backend' : 'Blocked (403 Forbidden)'}
                       </div>
                     </div>
@@ -923,7 +923,7 @@ export default function CitizenPage() {
                       className={`px-3 py-1.5 rounded-md text-xs font-bold transition shadow-sm ${
                         c.is_active
                           ? 'bg-rose-600 hover:bg-rose-700 text-white'
-                          : 'bg-[#859114] hover:bg-[#6F7910] text-white'
+                          : 'bg-[#F59E0B] hover:bg-[#D97706] text-white'
                       }`}
                     >
                       {c.is_active ? 'Revoke Consent' : 'Grant Consent'}
@@ -935,11 +935,11 @@ export default function CitizenPage() {
           </div>
 
           {/* Right to Rectify Misspelled Names */}
-          <div className="pt-4 border-t border-[#9E98A8]">
-            <h3 className="text-sm font-bold text-[#1C1B1F] mb-1">
+          <div className="pt-4 border-t border-[#616060]">
+            <h3 className="text-sm font-bold text-[#FFFFFF] mb-1">
               Right to Rectify (Citizen Data Sovereignty)
             </h3>
-            <p className="text-xs text-[#46434D] mb-4">
+            <p className="text-xs text-[#D1D5DB] mb-4">
               Fix misspelled names or transliterations directly. All rectifications are written to the immutable audit ledger.
             </p>
 
@@ -950,7 +950,7 @@ export default function CitizenPage() {
                 onChange={(e) => setCorrectionName(e.target.value)}
                 placeholder="Corrected Name"
                 required
-                className="h-9 px-3 rounded-md border border-[#9E98A8] bg-white text-xs font-bold text-[#1C1B1F]"
+                className="h-9 px-3 rounded-md border border-[#616060] bg-white text-xs font-bold text-[#FFFFFF]"
               />
 
               <input
@@ -959,13 +959,13 @@ export default function CitizenPage() {
                 onChange={(e) => setCorrectionCnic(e.target.value)}
                 placeholder="Corrected CNIC"
                 required
-                className="h-9 px-3 rounded-md border border-[#9E98A8] bg-white text-xs font-mono text-[#1C1B1F]"
+                className="h-9 px-3 rounded-md border border-[#616060] bg-white text-xs font-mono text-[#FFFFFF]"
               />
 
               <button
                 type="submit"
                 disabled={isCorrecting}
-                className="h-9 px-4 rounded-md bg-[#859114] hover:bg-[#6F7910] text-white font-bold text-xs shadow transition disabled:opacity-50"
+                className="h-9 px-4 rounded-md bg-[#F59E0B] hover:bg-[#D97706] text-white font-bold text-xs shadow transition disabled:opacity-50"
               >
                 {isCorrecting ? 'Recording...' : 'Update & Log Rectification'}
               </button>

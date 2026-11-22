@@ -27,14 +27,15 @@ export function ThunderLogo({
 
   return (
     <div className={`flex items-center gap-2.5 ${className}`}>
-      {/* Lightning Badge */}
+      {/* High-Contrast Electric Gold Lightning Badge - Totally distinct from body #4A4949 */}
       <div
-        className={`${dim} rounded-md bg-[#859114] flex items-center justify-center shadow border border-[#6F7910] text-white flex-shrink-0`}
+        className={`${dim} rounded-md bg-gradient-to-br from-[#F59E0B] via-[#EAB308] to-[#D97706] flex items-center justify-center shadow-lg border-2 border-[#FEF08A] text-[#1C1B1F] flex-shrink-0 transition-transform group-hover:scale-105`}
+        title="Team Thunder - Coder's Cup '26"
       >
         <svg
           viewBox="0 0 24 24"
           fill="currentColor"
-          className={`${iconSize} text-white drop-shadow-sm`}
+          className={`${iconSize} text-[#1C1B1F] drop-shadow-sm`}
         >
           <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
         </svg>
@@ -46,11 +47,11 @@ export function ThunderLogo({
             <span className="font-extrabold text-lg sm:text-xl tracking-tight text-white leading-none">
               SahulatRail
             </span>
-            <span className="text-[10px] font-black tracking-widest uppercase bg-white/20 text-white border border-white/30 px-1.5 py-0.2 rounded">
+            <span className="text-[10px] font-black tracking-widest uppercase bg-[#F59E0B] text-[#1C1B1F] border border-[#FEF08A] px-1.5 py-0.5 rounded shadow-sm">
               THUNDER
             </span>
           </div>
-          <span className="text-[10px] text-white/80 tracking-wide font-medium">
+          <span className="text-[10px] text-white/90 tracking-wide font-medium">
             AI on Public Rails
           </span>
         </div>

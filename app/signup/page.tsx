@@ -96,13 +96,13 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-140px)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 text-[#1C1B1F]">
-      <div className="max-w-lg w-full bg-white rounded-lg border border-[#9E98A8] shadow-xl p-6 sm:p-8 space-y-5">
+    <div className="min-h-[calc(100vh-140px)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 text-[#FFFFFF]">
+      <div className="max-w-lg w-full bg-white rounded-lg border border-[#616060] shadow-xl p-6 sm:p-8 space-y-5">
         <div className="flex items-center gap-2.5 mb-2">
           <ThunderLogo size={32} withText={false} />
           <div>
-            <h2 className="text-xl font-bold text-[#1C1B1F]">Create SahulatRail Account</h2>
-            <p className="text-xs text-[#859114] font-bold">Self-Registration &amp; OTP Verification</p>
+            <h2 className="text-xl font-bold text-[#FFFFFF]">Create SahulatRail Account</h2>
+            <p className="text-xs text-[#F59E0B] font-bold">Self-Registration &amp; OTP Verification</p>
           </div>
         </div>
 
@@ -123,52 +123,52 @@ export default function SignupPage() {
         {step === 'DETAILS' ? (
           <form onSubmit={handleSendOtp} className="space-y-4">
             <div>
-              <label className="block text-xs font-bold text-[#1C1B1F] mb-1">Full Legal Name</label>
+              <label className="block text-xs font-bold text-[#FFFFFF] mb-1">Full Legal Name</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Rashida Bibi or Khadija Parveen"
                 required
-                className="w-full px-3 py-2 bg-slate-50 border border-[#9E98A8] rounded-md text-xs text-[#1C1B1F] focus:outline-none focus:border-[#859114]"
+                className="w-full px-3 py-2 bg-slate-50 border border-[#616060] rounded-md text-xs text-[#FFFFFF] focus:outline-none focus:border-[#F59E0B]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#1C1B1F] mb-1">
+              <label className="block text-xs font-bold text-[#FFFFFF] mb-1">
                 Email Address or Mobile Phone Number
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-[#46434D] absolute left-3 top-2.5" />
+                <Mail className="w-4 h-4 text-[#D1D5DB] absolute left-3 top-2.5" />
                 <input
                   type="text"
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
                   placeholder="name@example.com or 0300-1234567"
                   required
-                  className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-[#9E98A8] rounded-md text-xs text-[#1C1B1F] focus:outline-none focus:border-[#859114]"
+                  className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-[#616060] rounded-md text-xs text-[#FFFFFF] focus:outline-none focus:border-[#F59E0B]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#1C1B1F] mb-1">CNIC Number</label>
+              <label className="block text-xs font-bold text-[#FFFFFF] mb-1">CNIC Number</label>
               <input
                 type="text"
                 value={cnic}
                 onChange={(e) => setCnic(e.target.value)}
                 placeholder="35201-1234567-8"
                 required
-                className="w-full px-3 py-2 bg-slate-50 border border-[#9E98A8] rounded-md text-xs font-mono text-[#1C1B1F] focus:outline-none focus:border-[#859114]"
+                className="w-full px-3 py-2 bg-slate-50 border border-[#616060] rounded-md text-xs font-mono text-[#FFFFFF] focus:outline-none focus:border-[#F59E0B]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#1C1B1F] mb-1">Select Persona Role</label>
+              <label className="block text-xs font-bold text-[#FFFFFF] mb-1">Select Persona Role</label>
               <select
                 value={role}
                 onChange={(e) => setRole(e.target.value as UserRole)}
-                className="w-full px-3 py-2 bg-slate-50 border border-[#9E98A8] rounded-md text-xs text-[#1C1B1F] focus:outline-none focus:border-[#859114]"
+                className="w-full px-3 py-2 bg-slate-50 border border-[#616060] rounded-md text-xs text-[#FFFFFF] focus:outline-none focus:border-[#F59E0B]"
               >
                 <option value="citizen">Citizen (Applying for Emergency Relief Grant)</option>
                 <option value="helper">Community Helper (1 Phone for 40 Families)</option>
@@ -179,7 +179,7 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#859114] hover:bg-[#6F7910] text-white font-bold py-2.5 rounded-md text-xs flex items-center justify-center gap-2 transition shadow disabled:opacity-50"
+              className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-white font-bold py-2.5 rounded-md text-xs flex items-center justify-center gap-2 transition shadow disabled:opacity-50"
             >
               <span>{loading ? 'Dispatching Verification...' : 'Send Verification OTP'}</span>
               <ArrowRight className="w-4 h-4" />
@@ -187,23 +187,23 @@ export default function SignupPage() {
           </form>
         ) : (
           <form onSubmit={handleVerifyOtp} className="space-y-4">
-            <div className="bg-[#D5D1DC] border border-[#9E98A8] p-3 rounded-md text-xs text-[#1C1B1F]">
-              <div className="font-bold flex items-center gap-1.5 mb-1 text-[#859114]">
+            <div className="bg-[#2E2D2D] border border-[#616060] p-3 rounded-md text-xs text-[#FFFFFF]">
+              <div className="font-bold flex items-center gap-1.5 mb-1 text-[#F59E0B]">
                 <Sparkles className="w-4 h-4" />
                 <span>Verification OTP Sent</span>
               </div>
-              <p className="text-[11px] text-[#46434D]">
+              <p className="text-[11px] text-[#D1D5DB]">
                 For hackathon judges and testing, your 6-digit code is:
               </p>
-              <div className="text-xl font-bold font-mono tracking-widest text-[#1C1B1F] mt-1 bg-white p-2 rounded border border-[#9E98A8] text-center">
+              <div className="text-xl font-bold font-mono tracking-widest text-[#FFFFFF] mt-1 bg-white p-2 rounded border border-[#616060] text-center">
                 {demoOtp || '123456'}
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#1C1B1F] mb-1">Enter 6-Digit OTP</label>
+              <label className="block text-xs font-bold text-[#FFFFFF] mb-1">Enter 6-Digit OTP</label>
               <div className="relative">
-                <KeyRound className="w-4 h-4 text-[#46434D] absolute left-3 top-2.5" />
+                <KeyRound className="w-4 h-4 text-[#D1D5DB] absolute left-3 top-2.5" />
                 <input
                   type="text"
                   maxLength={6}
@@ -211,7 +211,7 @@ export default function SignupPage() {
                   onChange={(e) => setOtp(e.target.value)}
                   placeholder="Enter OTP code"
                   required
-                  className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-[#9E98A8] rounded-md text-sm font-mono tracking-widest text-[#1C1B1F] focus:outline-none focus:border-[#859114]"
+                  className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-[#616060] rounded-md text-sm font-mono tracking-widest text-[#FFFFFF] focus:outline-none focus:border-[#F59E0B]"
                 />
               </div>
             </div>
@@ -219,7 +219,7 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#859114] hover:bg-[#6F7910] text-white font-bold py-2.5 rounded-md text-xs flex items-center justify-center gap-2 transition shadow disabled:opacity-50"
+              className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-white font-bold py-2.5 rounded-md text-xs flex items-center justify-center gap-2 transition shadow disabled:opacity-50"
             >
               <span>{loading ? 'Verifying...' : 'Verify OTP & Finish Account Setup'}</span>
               <CheckCircle2 className="w-4 h-4" />
@@ -228,16 +228,16 @@ export default function SignupPage() {
             <button
               type="button"
               onClick={() => setStep('DETAILS')}
-              className="w-full text-center text-xs text-[#46434D] hover:text-[#1C1B1F] py-1"
+              className="w-full text-center text-xs text-[#D1D5DB] hover:text-[#FFFFFF] py-1"
             >
               &larr; Back to details
             </button>
           </form>
         )}
 
-        <div className="pt-3 border-t border-[#9E98A8] flex items-center justify-between text-xs text-[#46434D]">
+        <div className="pt-3 border-t border-[#616060] flex items-center justify-between text-xs text-[#D1D5DB]">
           <span>Already registered?</span>
-          <Link href="/login" className="font-bold text-[#859114] hover:underline">
+          <Link href="/login" className="font-bold text-[#F59E0B] hover:underline">
             Sign In Instead &rarr;
           </Link>
         </div>

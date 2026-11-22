@@ -44,3 +44,28 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Notification error', message: err.message }, { status: 500 });
   }
 }
+
+export async function PATCH(req: NextRequest) {
+  try {
+    const { id, all } = await req.json();
+
+    if (all) {
+      db.notifications.forEach((n) => {
+        n.isRead = true;
+      });
+      return NextResponse.json({ success: true, message: 'All notifications marked as read' });
+    }
+
+    if (id) {
+      const notif = db.notifications.find((n) => n.id === id);
+      if (notif) {
+        notif.isRead = true;
+      }
+      return NextResponse.json({ success: true, message: `Notification ${id} marked as read` });
+    }
+
+    return NextResponse.json({ error: 'Missing id or all flag' }, { status: 400 });
+  } catch (err: any) {
+    return NextResponse.json({ error: 'Failed to update notification', message: err.message }, { status: 500 });
+  }
+}

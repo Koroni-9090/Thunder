@@ -63,7 +63,7 @@ const VILLAGE_FAMILIES: FamilyMember[] = [
 ];
 
 export default function HelperPage() {
-  const { isLoggedIn, isOnline, setIsOnline, speakText } = useAuth();
+  const { user, isLoggedIn, isOnline, setIsOnline, speakText } = useAuth();
   const [selectedCitizen, setSelectedCitizen] = useState<FamilyMember>(VILLAGE_FAMILIES[0]);
   const [offlineQueue, setOfflineQueue] = useState<any[]>([]);
   const [syncing, setSyncing] = useState(false);
@@ -175,16 +175,16 @@ export default function HelperPage() {
 
   if (!isLoggedIn) {
     return (
-      <div className="max-w-xl mx-auto my-12 p-8 bg-[#CBC6D3] border border-[#9E98A8] rounded-lg shadow-xl text-center space-y-4 text-[#1C1B1F]">
-        <div className="w-14 h-14 rounded-full bg-[#859114] text-white flex items-center justify-center mx-auto shadow">
+      <div className="max-w-xl mx-auto my-12 p-8 bg-[#383737] border border-[#616060] rounded-lg shadow-xl text-center space-y-4 text-[#FFFFFF]">
+        <div className="w-14 h-14 rounded-full bg-[#F59E0B] text-white flex items-center justify-center mx-auto shadow">
           <Lock className="w-7 h-7" />
         </div>
-        <h2 className="text-xl font-black text-[#1C1B1F]">Authentication Required</h2>
-        <p className="text-xs text-[#46434D]">
+        <h2 className="text-xl font-black text-[#FFFFFF]">Authentication Required</h2>
+        <p className="text-xs text-[#D1D5DB]">
           To protect community families and prevent unauthorized access, sign in before entering the Community Helper Hub.
         </p>
         <Link
-          href="/login"
+          href="/"
           className="inline-flex items-center gap-2 bg-[#859114] hover:bg-[#6F7910] text-white font-bold px-6 py-2.5 rounded-md text-xs shadow"
         >
           <LogIn className="w-4 h-4" />
@@ -194,25 +194,46 @@ export default function HelperPage() {
     );
   }
 
+  if (user?.role !== 'helper' && user?.role !== 'admin') {
+    return (
+      <div className="max-w-xl mx-auto my-12 p-8 bg-[#383737] border border-[#616060] rounded-lg shadow-xl text-center space-y-4 text-white">
+        <div className="w-14 h-14 rounded-full bg-red-600 text-white flex items-center justify-center mx-auto shadow">
+          <ShieldAlert className="w-7 h-7" />
+        </div>
+        <h2 className="text-xl font-black text-white">403 Forbidden: Helper Kiosk Restricted</h2>
+        <p className="text-xs text-[#D1D5DB]">
+          You are currently signed in as <strong>{user?.name}</strong> with role <span className="uppercase font-bold text-[#F59E0B]">[{user?.role}]</span>. 
+          The 40-Families Village Kiosk mode is strictly restricted to certified Social Mobilizers and Community Helpers.
+        </p>
+        <Link
+          href={user?.role === 'citizen' ? '/citizen' : user?.role === 'officer' ? '/officer' : user?.role === 'auditor' ? '/auditor' : '/dashboard'}
+          className="inline-flex items-center gap-2 bg-[#859114] hover:bg-[#6F7910] text-white font-bold px-6 py-2.5 rounded-md text-xs shadow"
+        >
+          <span>Return to Your Authorized Workspace</span>
+        </Link>
+      </div>
+    );
+  }
+
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6 text-[#1C1B1F]">
+    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6 text-[#FFFFFF]">
       {/* Header */}
-      <div className="bg-[#CBC6D3] rounded-lg p-6 sm:p-8 border border-[#9E98A8] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#383737] rounded-lg p-6 sm:p-8 border border-[#616060] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-[#859114] text-xs font-bold uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-[#F59E0B] text-xs font-bold uppercase tracking-wider mb-1">
             <Shield className="w-4 h-4" />
             <span>Community Helper Kiosk Mode • 1 Phone for 40 Families</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-[#1C1B1F]">
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-[#FFFFFF]">
             Social Mobilizer Hub (Khadija Parveen)
           </h1>
-          <p className="text-xs sm:text-sm text-[#46434D] mt-1 max-w-2xl">
+          <p className="text-xs sm:text-sm text-[#D1D5DB] mt-1 max-w-2xl">
             Assisting illiterate widows in remote villages with weak cellular coverage. Applications automatically queue offline and sync with deduplication keys when internet is restored.
           </p>
         </div>
 
         {/* Offline Queue Badge & Sync Action */}
-        <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-md border border-[#9E98A8] shadow-sm">
+        <div className="flex items-center gap-2.5 bg-white p-2.5 rounded-md border border-[#616060] shadow-sm">
           <button
             onClick={() => setIsOnline(!isOnline)}
             className={`p-2 rounded-md text-xs font-bold flex items-center gap-1.5 transition ${
@@ -227,7 +248,7 @@ export default function HelperPage() {
             <button
               onClick={handleSyncOfflineQueue}
               disabled={syncing || !isOnline}
-              className="bg-[#859114] hover:bg-[#6F7910] text-white font-bold px-3 py-2 rounded-md text-xs flex items-center gap-1.5 shadow disabled:opacity-40"
+              className="bg-[#F59E0B] hover:bg-[#D97706] text-white font-bold px-3 py-2 rounded-md text-xs flex items-center gap-1.5 shadow disabled:opacity-40"
             >
               <CloudUpload className="w-3.5 h-3.5" />
               <span>Sync {offlineQueue.length} Queued</span>
@@ -253,13 +274,13 @@ export default function HelperPage() {
       {/* Main Grid: Family Switcher vs Application Form */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left: 40 Families Switcher List */}
-        <div className="bg-[#CBC6D3] rounded-lg border border-[#9E98A8] shadow-sm p-5 space-y-3">
-          <div className="flex items-center justify-between border-b border-[#9E98A8] pb-2.5">
+        <div className="bg-[#383737] rounded-lg border border-[#616060] shadow-sm p-5 space-y-3">
+          <div className="flex items-center justify-between border-b border-[#616060] pb-2.5">
             <div className="flex items-center gap-2">
-              <Users className="w-4 h-4 text-[#859114]" />
-              <h2 className="text-sm font-bold text-[#1C1B1F]">Registered Families</h2>
+              <Users className="w-4 h-4 text-[#F59E0B]" />
+              <h2 className="text-sm font-bold text-[#FFFFFF]">Registered Families</h2>
             </div>
-            <span className="text-xs bg-white text-[#1C1B1F] font-bold px-2 py-0.5 rounded border border-[#9E98A8] font-mono">
+            <span className="text-xs bg-[#242323] text-white font-bold px-2 py-0.5 rounded border border-[#616060] font-mono">
               3 of 40 Shown
             </span>
           </div>
@@ -273,12 +294,12 @@ export default function HelperPage() {
                   onClick={() => setSelectedCitizen(family)}
                   className={`p-3 rounded-md border text-xs cursor-pointer transition ${
                     isSelected
-                      ? 'border-[#859114] bg-white shadow-sm'
-                      : 'border-[#9E98A8] hover:border-[#859114] bg-[#D5D1DC]'
+                      ? 'border-[#F59E0B] bg-white shadow-sm'
+                      : 'border-[#616060] hover:border-[#F59E0B] bg-[#2E2D2D]'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <div className="font-bold text-[#1C1B1F]">{family.name}</div>
+                    <div className="font-bold text-[#FFFFFF]">{family.name}</div>
                     <span
                       className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
                         family.consentGranted
@@ -289,27 +310,27 @@ export default function HelperPage() {
                       {family.consentGranted ? 'Consent Active' : 'Consent Revoked'}
                     </span>
                   </div>
-                  <div className="text-[11px] text-[#46434D] font-mono mt-0.5">{family.cnic}</div>
-                  <div className="text-[11px] text-[#46434D] mt-0.5">{family.district}</div>
+                  <div className="text-[11px] text-[#D1D5DB] font-mono mt-0.5">{family.cnic}</div>
+                  <div className="text-[11px] text-[#D1D5DB] mt-0.5">{family.district}</div>
                 </div>
               );
             })}
           </div>
 
-          <div className="pt-2 border-t border-[#9E98A8] text-[11px] text-[#46434D]">
+          <div className="pt-2 border-t border-[#616060] text-[11px] text-[#D1D5DB]">
             Note: Selecting a citizen with &ldquo;Consent Revoked&rdquo; will be blocked by backend enforcement.
           </div>
         </div>
 
         {/* Right 2 Columns: Application Submission & Offline Queue Details */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-[#CBC6D3] rounded-lg border border-[#9E98A8] shadow-sm p-6">
-            <div className="flex items-center justify-between border-b border-[#9E98A8] pb-3 mb-5">
+          <div className="bg-[#383737] rounded-lg border border-[#616060] shadow-sm p-6">
+            <div className="flex items-center justify-between border-b border-[#616060] pb-3 mb-5">
               <div>
-                <h3 className="text-base font-bold text-[#1C1B1F]">
+                <h3 className="text-base font-bold text-[#FFFFFF]">
                   Assist Citizen: {selectedCitizen.name}
                 </h3>
-                <p className="text-xs text-[#46434D]">
+                <p className="text-xs text-[#D1D5DB]">
                   CNIC: {selectedCitizen.cnic} • {selectedCitizen.district}
                 </p>
               </div>
@@ -323,10 +344,10 @@ export default function HelperPage() {
             </div>
 
             {!selectedCitizen.consentGranted ? (
-              <div className="bg-white border border-[#9E98A8] p-6 rounded-md text-center space-y-2">
+              <div className="bg-white border border-[#616060] p-6 rounded-md text-center space-y-2">
                 <ShieldAlert className="w-8 h-8 text-rose-600 mx-auto" />
-                <h4 className="text-sm font-bold text-[#1C1B1F]">403 Forbidden: Consent Withdrawn</h4>
-                <p className="text-xs text-[#46434D] max-w-md mx-auto">
+                <h4 className="text-sm font-bold text-[#FFFFFF]">403 Forbidden: Consent Withdrawn</h4>
+                <p className="text-xs text-[#D1D5DB] max-w-md mx-auto">
                   {selectedCitizen.name} has toggled OFF Helper consent in her privacy settings. You cannot view her sensitive documents or submit claims on her behalf until she re-grants consent.
                 </p>
               </div>
@@ -334,7 +355,7 @@ export default function HelperPage() {
               <form onSubmit={handleQueueOrSubmitApplication} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-[#1C1B1F] mb-1">
+                    <label className="block text-xs font-bold text-[#FFFFFF] mb-1">
                       Reported Monthly Household Income (PKR)
                     </label>
                     <input
@@ -342,46 +363,46 @@ export default function HelperPage() {
                       value={claimIncome}
                       onChange={(e) => setClaimIncome(e.target.value)}
                       required
-                      className="w-full px-3 py-2 bg-white border border-[#9E98A8] rounded-md text-xs text-[#1C1B1F] focus:outline-none focus:border-[#859114]"
+                      className="w-full px-3 py-2 bg-white border border-[#616060] rounded-md text-xs text-[#FFFFFF] focus:outline-none focus:border-[#F59E0B]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-[#1C1B1F] mb-1">
+                    <label className="block text-xs font-bold text-[#FFFFFF] mb-1">
                       Vulnerability Status
                     </label>
                     <input
                       type="text"
                       readOnly
                       value={selectedCitizen.isWidow ? 'Widow (Special Relief Priority)' : 'Standard'}
-                      className="w-full px-3 py-2 bg-[#D5D1DC] border border-[#9E98A8] rounded-md text-xs text-[#1C1B1F] font-medium"
+                      className="w-full px-3 py-2 bg-[#2E2D2D] border border-[#616060] rounded-md text-xs text-[#FFFFFF] font-medium"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-[#1C1B1F] mb-1">
+                  <label className="block text-xs font-bold text-[#FFFFFF] mb-1">
                     Community Helper Verification Notes
                   </label>
                   <textarea
                     rows={3}
                     value={claimNotes}
                     onChange={(e) => setClaimNotes(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-[#9E98A8] rounded-md text-xs text-[#1C1B1F] focus:outline-none focus:border-[#859114]"
+                    className="w-full px-3 py-2 bg-white border border-[#616060] rounded-md text-xs text-[#FFFFFF] focus:outline-none focus:border-[#F59E0B]"
                   />
                 </div>
 
                 <div className="pt-2 flex items-center justify-between">
-                  <div className="text-xs text-[#46434D]">
+                  <div className="text-xs text-[#D1D5DB]">
                     Dispatch Mode:{' '}
-                    <span className="font-bold text-[#1C1B1F]">
+                    <span className="font-bold text-[#FFFFFF]">
                       {isOnline ? 'Instant API Dispatch' : 'Local Queue (Offline)'}
                     </span>
                   </div>
 
                   <button
                     type="submit"
-                    className="bg-[#859114] hover:bg-[#6F7910] text-white font-bold py-2.5 px-5 rounded-md text-xs flex items-center gap-2 transition shadow"
+                    className="bg-[#F59E0B] hover:bg-[#D97706] text-white font-bold py-2.5 px-5 rounded-md text-xs flex items-center gap-2 transition shadow"
                   >
                     <Send className="w-3.5 h-3.5" />
                     <span>
@@ -394,18 +415,18 @@ export default function HelperPage() {
           </div>
 
           {/* Offline Queue Items Viewer */}
-          <div className="bg-[#CBC6D3] rounded-lg border border-[#9E98A8] shadow-sm p-6">
-            <div className="flex items-center justify-between border-b border-[#9E98A8] pb-2.5 mb-3">
+          <div className="bg-[#383737] rounded-lg border border-[#616060] shadow-sm p-6">
+            <div className="flex items-center justify-between border-b border-[#616060] pb-2.5 mb-3">
               <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-[#859114]" />
-                <h3 className="text-sm font-bold text-[#1C1B1F]">
+                <Clock className="w-4 h-4 text-[#F59E0B]" />
+                <h3 className="text-sm font-bold text-[#FFFFFF]">
                   Local Offline Storage Queue ({offlineQueue.length} Pending)
                 </h3>
               </div>
               {offlineQueue.length > 0 && (
                 <button
                   onClick={() => saveQueueToStorage([])}
-                  className="text-xs text-[#46434D] hover:text-rose-700"
+                  className="text-xs text-[#D1D5DB] hover:text-rose-700"
                 >
                   Clear Queue
                 </button>
@@ -413,7 +434,7 @@ export default function HelperPage() {
             </div>
 
             {offlineQueue.length === 0 ? (
-              <p className="text-xs text-[#46434D] italic py-3 text-center">
+              <p className="text-xs text-[#D1D5DB] italic py-3 text-center">
                 Offline queue is empty. When internet is unavailable, applications are queued here with deduplication keys.
               </p>
             ) : (
@@ -421,15 +442,15 @@ export default function HelperPage() {
                 {offlineQueue.map((item, idx) => (
                   <div
                     key={idx}
-                    className="bg-white border border-[#9E98A8] p-2.5 rounded-md text-xs flex items-center justify-between shadow-sm"
+                    className="bg-white border border-[#616060] p-2.5 rounded-md text-xs flex items-center justify-between shadow-sm"
                   >
                     <div>
-                      <div className="font-bold text-[#1C1B1F]">{item.fullName}</div>
-                      <div className="text-[11px] text-[#46434D] font-mono">
+                      <div className="font-bold text-[#FFFFFF]">{item.fullName}</div>
+                      <div className="text-[11px] text-[#D1D5DB] font-mono">
                         {item.cnic} • Dedup: {item.deduplicationKey}
                       </div>
                     </div>
-                    <span className="text-[10px] bg-[#859114]/20 text-[#859114] font-mono px-2 py-0.5 rounded font-bold">
+                    <span className="text-[10px] bg-[#F59E0B]/20 text-[#F59E0B] font-mono px-2 py-0.5 rounded font-bold">
                       QUEUED
                     </span>
                   </div>

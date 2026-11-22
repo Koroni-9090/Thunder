@@ -18,13 +18,14 @@ interface AuthContextType {
   notifications: NotificationItem[];
   unreadCount: number;
   markNotificationRead: (id: string) => void;
+  markAllNotificationsRead: () => void;
   speakText: (text: string, lang?: 'ur' | 'en') => void;
   speak: (text: string, lang?: 'ur' | 'en') => void;
   stopSpeaking: () => void;
   isSpeaking: boolean;
 }
 
-const PRESET_USERS: Record<UserRole, User> = {
+export const PRESET_USERS: Record<UserRole, User> = {
   citizen: {
     id: 'usr-citizen-1',
     name: 'Rashida Bibi (Widow)',
@@ -83,7 +84,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
 
-  // Initialize session and available speech voices
+  // Initialize session - DO NOT AUTO-LOGIN if user previously logged out
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setIsOnline(navigator.onLine);
@@ -103,23 +104,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         window.speechSynthesis.onvoiceschanged = updateVoices;
       }
 
-      // Check existing session from localStorage / me endpoint
+      // Check existing session from localStorage
       const savedUser = localStorage.getItem('sahulat_user');
       if (savedUser) {
         try {
           const parsed = JSON.parse(savedUser);
-          setCurrentUser(parsed);
-          setIsLoggedIn(true);
-          setLanguage(parsed.language_pref || 'en');
+          if (parsed && parsed.id) {
+            setCurrentUser(parsed);
+            setIsLoggedIn(true);
+            setLanguage(parsed.language_pref || 'en');
+          } else {
+            setCurrentUser(null);
+            setIsLoggedIn(false);
+          }
         } catch {
-          // ignore
+          setCurrentUser(null);
+          setIsLoggedIn(false);
         }
       } else {
-        // Default to demo citizen so initial state is friendly, but user can log out
-        const defaultDemo = PRESET_USERS.citizen;
-        setCurrentUser(defaultDemo);
-        setIsLoggedIn(true);
-        localStorage.setItem('sahulat_user', JSON.stringify(defaultDemo));
+        // If not logged in, remain unauthenticated so user starts from home login screen
+        setCurrentUser(null);
+        setIsLoggedIn(false);
       }
 
       // Register Service Worker for offline capability
@@ -136,14 +141,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  // Poll notifications
+  // Poll notifications and reconcile with local read status
   useEffect(() => {
     async function loadNotifications() {
       try {
         const res = await fetch('/api/notifications');
         if (res.ok) {
           const data = await res.json();
-          setNotifications(data.notifications || []);
+          let serverNotifs: NotificationItem[] = data.notifications || [];
+          if (typeof window !== 'undefined') {
+            const readIds: string[] = JSON.parse(localStorage.getItem('sahulat_read_notifs') || '[]');
+            if (readIds.length > 0) {
+              const readSet = new Set(readIds);
+              serverNotifs = serverNotifs.map((n) => ({
+                ...n,
+                isRead: n.isRead || readSet.has(n.id),
+              }));
+            }
+          }
+          setNotifications(serverNotifs);
         }
       } catch {
         // offline or fallback
@@ -172,28 +188,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.removeItem('sahulat_token');
       // Clear cookie
       document.cookie = 'sahulat_session=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-      window.location.href = '/dashboard';
+      window.location.href = '/';
     }
   };
 
   const switchRole = async (role: UserRole) => {
-    const user = PRESET_USERS[role];
-    setCurrentUser(user);
-    setIsLoggedIn(true);
-    setLanguage(user.language_pref);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('sahulat_user', JSON.stringify(user));
-    }
-
-    // Call mock login to set cookie
+    const preset = PRESET_USERS[role];
     try {
-      await fetch('/api/auth/login', {
+      const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: user.email }),
+        body: JSON.stringify({ email: preset.email, skipOtp: true }),
       });
+      if (res.ok) {
+        const data = await res.json();
+        loginUser(data.user || preset, data.token);
+      } else {
+        loginUser(preset);
+      }
     } catch {
-      // offline fallback
+      loginUser(preset);
     }
   };
 
@@ -201,6 +215,37 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setNotifications((prev) =>
       prev.map((n) => (n.id === id ? { ...n, isRead: true } : n))
     );
+    if (typeof window !== 'undefined') {
+      try {
+        const readIds: string[] = JSON.parse(localStorage.getItem('sahulat_read_notifs') || '[]');
+        if (!readIds.includes(id)) {
+          readIds.push(id);
+          localStorage.setItem('sahulat_read_notifs', JSON.stringify(readIds));
+        }
+      } catch {}
+    }
+    // Update server
+    fetch('/api/notifications', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    }).catch(() => {});
+  };
+
+  const markAllNotificationsRead = () => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
+    if (typeof window !== 'undefined') {
+      try {
+        const allIds = notifications.map((n) => n.id);
+        localStorage.setItem('sahulat_read_notifs', JSON.stringify(allIds));
+      } catch {}
+    }
+    // Update server
+    fetch('/api/notifications', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ all: true }),
+    }).catch(() => {});
   };
 
   // Dual-Language Young Man Voice Synthesis (Urdu + English)
@@ -217,7 +262,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const voices = availableVoices.length > 0 ? availableVoices : window.speechSynthesis.getVoices();
 
     if (lang === 'ur') {
-      // Look for Urdu voices first, then Hindi (which shares high phonetic compatibility for Urdu script/roman), then general
       const urVoice = voices.find(
         (v) =>
           v.lang.toLowerCase().startsWith('ur') ||
@@ -228,7 +272,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (urVoice) utterance.voice = urVoice;
       utterance.lang = 'ur-PK';
     } else {
-      // Look for crisp, young male English voices
       const youngMaleVoice = voices.find(
         (v) =>
           (v.name.includes('Ryan') ||
@@ -275,6 +318,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         notifications,
         unreadCount,
         markNotificationRead,
+        markAllNotificationsRead,
         speakText,
         speak: speakText,
         stopSpeaking,

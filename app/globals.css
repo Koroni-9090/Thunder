@@ -5,20 +5,20 @@
 @tailwind utilities;
 
 :root {
-  /* Theme & Surface Colors */
-  --bg-body: #BEB9C7;              /* Soft lavender-gray */
-  --bg-surface: #CBC6D3;           /* Card / container background */
-  --bg-surface-elevated: #D5D1DC;  /* Slightly lighter tint for elevated cards */
+  /* Theme & Surface Colors: Updated to #4A4949 */
+  --bg-body: #4A4949;              /* Deep neutral slate/graphite requested by user */
+  --bg-surface: #383737;           /* Card / container background cleanly standing out against body */
+  --bg-surface-elevated: #2E2D2D;  /* Slightly deeper tint for elevated cards and modals */
   --bg-nav: #859114;               /* Olive green navbar */
-  --bg-sidebar: #A8A2B3;           /* Slightly deeper muted tone of lavender */
+  --bg-sidebar: #3F3E3E;           /* Sidebar container background */
   --brand-primary: #859114;        /* Primary olive green accent */
   --brand-hover: #6F7910;          /* Slightly darker hover state */
-  --border-default: #9E98A8;       /* Subtle harmonious border for cards, inputs, dividers */
-  --border-subtle: #AEA8B7;
+  --border-default: #616060;       /* Harmonious crisp border for cards, inputs, dividers */
+  --border-subtle: #525151;
 
-  /* Dynamic Text Contrast & Readability */
-  --text-main: #1C1B1F;            /* Deep charcoal for primary text on light/muted surfaces */
-  --text-muted: #46434D;           /* Secondary text ensuring WCAG AA >= 4.5:1 ratio */
+  /* Dynamic Text Contrast & Readability on #4A4949 & #383737 */
+  --text-main: #FFFFFF;            /* Pure white for primary text on medium-dark surfaces */
+  --text-muted: #D1D5DB;           /* Light gray text ensuring WCAG AA >= 4.5:1 ratio */
   --text-on-brand: #FFFFFF;        /* Crisp white inside brand elements */
 
   /* Typography */
@@ -89,13 +89,13 @@ body {
 }
 
 .app-input {
-  background-color: #FFFFFF;
+  background-color: #2A2929;
   border: 1px solid var(--border-default);
   border-radius: 6px;
-  color: var(--text-main);
+  color: #FFFFFF;
 }
 .app-input:focus {
   outline: none;
-  border-color: var(--brand-primary);
-  box-shadow: 0 0 0 1px var(--brand-primary);
+  border-color: #859114;
+  box-shadow: 0 0 0 1px #859114;
 }

@@ -140,18 +140,18 @@ export default function ApiDocsPage() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6 text-[#1C1B1F]">
+    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6 text-[#FFFFFF]">
       {/* Header */}
-      <div className="bg-[#CBC6D3] rounded-lg p-6 sm:p-8 border border-[#9E98A8] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#383737] rounded-lg p-6 sm:p-8 border border-[#616060] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#859114] mb-1">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#F59E0B] mb-1">
             <BookOpen className="w-4 h-4" />
             <span>Developer Portal &bull; REST API &bull; OpenAPI 3.0</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-[#1C1B1F]">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#FFFFFF]">
             SahulatRail Public REST API
           </h1>
-          <p className="text-xs sm:text-sm text-[#46434D] mt-0.5 max-w-2xl">
+          <p className="text-xs sm:text-sm text-[#D1D5DB] mt-0.5 max-w-2xl">
             Integrate provincial emergency response systems, BISP portals, and financial switches with standard Bearer JWT or API Key authentication.
           </p>
         </div>
@@ -160,7 +160,7 @@ export default function ApiDocsPage() {
           <Link
             href="/api/docs"
             target="_blank"
-            className="flex items-center gap-1.5 bg-[#859114] hover:bg-[#6F7910] text-white px-3.5 py-2 rounded-md font-bold text-xs shadow transition"
+            className="flex items-center gap-1.5 bg-[#F59E0B] hover:bg-[#D97706] text-white px-3.5 py-2 rounded-md font-bold text-xs shadow transition"
           >
             <Code2 className="w-4 h-4" />
             <span>OpenAPI JSON</span>
@@ -170,19 +170,19 @@ export default function ApiDocsPage() {
       </div>
 
       {/* API Key Management */}
-      <div className="bg-[#CBC6D3] rounded-lg p-6 border border-[#9E98A8] shadow-sm space-y-4">
-        <div className="flex items-center justify-between border-b border-[#9E98A8] pb-3">
+      <div className="bg-[#383737] rounded-lg p-6 border border-[#616060] shadow-sm space-y-4">
+        <div className="flex items-center justify-between border-b border-[#616060] pb-3">
           <div className="flex items-center gap-2">
-            <Key className="w-5 h-5 text-[#859114]" />
-            <h2 className="text-base font-bold text-[#1C1B1F]">API Key Management</h2>
+            <Key className="w-5 h-5 text-[#F59E0B]" />
+            <h2 className="text-base font-bold text-[#FFFFFF]">API Key Management</h2>
           </div>
-          <span className="text-[10px] bg-white text-[#859114] font-bold px-2 py-0.5 rounded border border-[#9E98A8]">
+          <span className="text-[10px] bg-white text-[#F59E0B] font-bold px-2 py-0.5 rounded border border-[#616060]">
             Header: x-api-key
           </span>
         </div>
 
         {issuedKeyAlert && (
-          <div className="p-3 bg-white border border-[#859114] text-[#1C1B1F] font-bold text-xs rounded-md shadow-sm">
+          <div className="p-3 bg-white border border-[#F59E0B] text-[#FFFFFF] font-bold text-xs rounded-md shadow-sm">
             {issuedKeyAlert}
           </div>
         )}
@@ -193,31 +193,31 @@ export default function ApiDocsPage() {
             value={newKeyName}
             onChange={(e) => setNewKeyName(e.target.value)}
             placeholder="Enter key name (e.g. Sindh Disaster Relief Integration)"
-            className="flex-1 h-9 px-3 bg-white rounded-md border border-[#9E98A8] text-xs font-medium text-[#1C1B1F] focus:outline-none focus:border-[#859114]"
+            className="flex-1 h-9 px-3 bg-white rounded-md border border-[#616060] text-xs font-medium text-[#FFFFFF] focus:outline-none focus:border-[#F59E0B]"
             required
           />
           <button
             type="submit"
             disabled={isIssuingKey}
-            className="px-4 py-2 bg-[#859114] hover:bg-[#6F7910] text-white font-bold text-xs rounded-md shadow transition"
+            className="px-4 py-2 bg-[#F59E0B] hover:bg-[#D97706] text-white font-bold text-xs rounded-md shadow transition"
           >
             Issue New API Key
           </button>
         </form>
 
         <div className="space-y-2">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-[#46434D]">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#D1D5DB]">
             Active Registered Keys:
           </span>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
             {keys.map((k) => (
               <div
                 key={k.id}
-                className="p-3 rounded-md border border-[#9E98A8] bg-white flex items-center justify-between shadow-sm"
+                className="p-3 rounded-md border border-[#616060] bg-white flex items-center justify-between shadow-sm"
               >
                 <div>
-                  <div className="font-bold text-[#1C1B1F]">{k.name}</div>
-                  <div className="text-[11px] font-mono text-[#46434D]">
+                  <div className="font-bold text-[#FFFFFF]">{k.name}</div>
+                  <div className="text-[11px] font-mono text-[#D1D5DB]">
                     {k.keyPrefix} ({k.rateLimitPerMinute} req/min)
                   </div>
                 </div>
@@ -231,10 +231,10 @@ export default function ApiDocsPage() {
       </div>
 
       {/* Interactive API Live Tester */}
-      <div className="bg-[#1C1B1F] text-white rounded-lg p-6 shadow-xl space-y-4 border border-[#9E98A8]">
+      <div className="bg-[#FFFFFF] text-white rounded-lg p-6 shadow-xl space-y-4 border border-[#616060]">
         <div className="flex items-center justify-between border-b border-white/20 pb-3">
           <div className="flex items-center gap-2">
-            <Terminal className="w-5 h-5 text-[#859114]" />
+            <Terminal className="w-5 h-5 text-[#F59E0B]" />
             <h3 className="font-bold text-sm text-white">Interactive Live API Workbench</h3>
           </div>
           <span className="text-xs text-white/70 font-mono">x-api-key: sahulat_live_key_dpi2026</span>
@@ -245,12 +245,12 @@ export default function ApiDocsPage() {
             type="text"
             value={testEndpoint}
             onChange={(e) => setTestEndpoint(e.target.value)}
-            className="flex-1 h-9 px-3 rounded-md bg-black/50 text-white font-mono text-xs border border-white/30 focus:outline-none focus:border-[#859114]"
+            className="flex-1 h-9 px-3 rounded-md bg-black/50 text-white font-mono text-xs border border-white/30 focus:outline-none focus:border-[#F59E0B]"
           />
           <button
             onClick={handleRunLiveTest}
             disabled={isTesting}
-            className="px-4 py-2 bg-[#859114] hover:bg-[#6F7910] text-white font-bold text-xs rounded-md shadow transition"
+            className="px-4 py-2 bg-[#F59E0B] hover:bg-[#D97706] text-white font-bold text-xs rounded-md shadow transition"
           >
             {isTesting ? 'Testing...' : 'Send Request'}
           </button>
@@ -265,12 +265,12 @@ export default function ApiDocsPage() {
 
       {/* Endpoints Reference */}
       <div className="space-y-4">
-        <h2 className="text-lg font-bold text-[#1C1B1F]">Endpoints Reference</h2>
+        <h2 className="text-lg font-bold text-[#FFFFFF]">Endpoints Reference</h2>
 
         {endpoints.map((ep, idx) => (
           <div
             key={idx}
-            className="bg-[#CBC6D3] rounded-lg border border-[#9E98A8] p-5 space-y-3 shadow-sm hover:border-[#859114] transition"
+            className="bg-[#383737] rounded-lg border border-[#616060] p-5 space-y-3 shadow-sm hover:border-[#F59E0B] transition"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -283,21 +283,21 @@ export default function ApiDocsPage() {
                 >
                   {ep.method}
                 </span>
-                <span className="font-mono text-xs sm:text-sm font-bold text-[#1C1B1F]">
+                <span className="font-mono text-xs sm:text-sm font-bold text-[#FFFFFF]">
                   {ep.path}
                 </span>
               </div>
-              <span className="text-[10px] bg-white text-[#1C1B1F] font-bold px-2 py-0.5 rounded border border-[#9E98A8]">
+              <span className="text-[10px] bg-[#242323] text-white font-bold px-2 py-0.5 rounded border border-[#616060]">
                 {ep.tag}
               </span>
             </div>
 
-            <p className="text-xs text-[#46434D]">{ep.description}</p>
+            <p className="text-xs text-[#D1D5DB]">{ep.description}</p>
 
-            <div className="relative rounded-md bg-[#1C1B1F] p-3 text-white font-mono text-xs overflow-x-auto border border-[#9E98A8]">
+            <div className="relative rounded-md bg-[#FFFFFF] p-3 text-white font-mono text-xs overflow-x-auto border border-[#616060]">
               <button
                 onClick={() => copyToClipboard(ep.curl, idx)}
-                className="absolute top-2 right-2 flex items-center gap-1 bg-[#859114] hover:bg-[#6F7910] text-white px-2 py-1 rounded text-[10px] font-sans font-bold shadow"
+                className="absolute top-2 right-2 flex items-center gap-1 bg-[#F59E0B] hover:bg-[#D97706] text-white px-2 py-1 rounded text-[10px] font-sans font-bold shadow"
               >
                 {copiedIndex === idx ? <Check className="w-3 h-3 text-white" /> : <Copy className="w-3 h-3" />}
                 <span>{copiedIndex === idx ? 'Copied' : 'Copy cURL'}</span>

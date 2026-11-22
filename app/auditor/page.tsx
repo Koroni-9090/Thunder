@@ -17,11 +17,12 @@ import {
   Lock,
   Layers,
   LogIn,
+  ShieldAlert,
 } from 'lucide-react';
 import { AuditLog } from '../../lib/types';
 
 export default function AuditorPage() {
-  const { isLoggedIn } = useAuth();
+  const { user, isLoggedIn } = useAuth();
   const [logs, setLogs] = useState<AuditLog[]>([]);
   const [filterAction, setFilterAction] = useState<string>('ALL');
   const [searchTerm, setSearchTerm] = useState('');
@@ -68,16 +69,16 @@ export default function AuditorPage() {
 
   if (!isLoggedIn) {
     return (
-      <div className="max-w-xl mx-auto my-12 p-8 bg-[#CBC6D3] border border-[#9E98A8] rounded-lg shadow-xl text-center space-y-4 text-[#1C1B1F]">
-        <div className="w-14 h-14 rounded-full bg-[#859114] text-white flex items-center justify-center mx-auto shadow">
+      <div className="max-w-xl mx-auto my-12 p-8 bg-[#383737] border border-[#616060] rounded-lg shadow-xl text-center space-y-4 text-[#FFFFFF]">
+        <div className="w-14 h-14 rounded-full bg-[#F59E0B] text-white flex items-center justify-center mx-auto shadow">
           <Lock className="w-7 h-7" />
         </div>
-        <h2 className="text-xl font-black text-[#1C1B1F]">Authentication Required</h2>
-        <p className="text-xs text-[#46434D]">
+        <h2 className="text-xl font-black text-[#FFFFFF]">Authentication Required</h2>
+        <p className="text-xs text-[#D1D5DB]">
           To view statutory audit logs and live AI compliance evaluation metrics, please sign in.
         </p>
         <Link
-          href="/login"
+          href="/"
           className="inline-flex items-center gap-2 bg-[#859114] hover:bg-[#6F7910] text-white font-bold px-6 py-2.5 rounded-md text-xs shadow"
         >
           <LogIn className="w-4 h-4" />
@@ -87,24 +88,45 @@ export default function AuditorPage() {
     );
   }
 
+  if (user?.role !== 'auditor' && user?.role !== 'admin') {
+    return (
+      <div className="max-w-xl mx-auto my-12 p-8 bg-[#383737] border border-[#616060] rounded-lg shadow-xl text-center space-y-4 text-white">
+        <div className="w-14 h-14 rounded-full bg-red-600 text-white flex items-center justify-center mx-auto shadow">
+          <ShieldAlert className="w-7 h-7" />
+        </div>
+        <h2 className="text-xl font-black text-white">403 Forbidden: Auditor Access Restricted</h2>
+        <p className="text-xs text-[#D1D5DB]">
+          You are currently signed in as <strong>{user?.name}</strong> with role <span className="uppercase font-bold text-[#F59E0B]">[{user?.role}]</span>. 
+          Statutory audit logs and forensic AI compliance evaluations are strictly restricted to State Auditors and Administrators.
+        </p>
+        <Link
+          href={user?.role === 'citizen' ? '/citizen' : user?.role === 'helper' ? '/helper' : user?.role === 'officer' ? '/officer' : '/dashboard'}
+          className="inline-flex items-center gap-2 bg-[#859114] hover:bg-[#6F7910] text-white font-bold px-6 py-2.5 rounded-md text-xs shadow"
+        >
+          <span>Return to Your Authorized Workspace</span>
+        </Link>
+      </div>
+    );
+  }
+
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6 text-[#1C1B1F]">
+    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6 text-[#FFFFFF]">
       {/* Header */}
-      <div className="bg-[#CBC6D3] rounded-lg p-6 sm:p-8 border border-[#9E98A8] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#383737] rounded-lg p-6 sm:p-8 border border-[#616060] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-[#859114] text-xs font-bold uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-[#F59E0B] text-xs font-bold uppercase tracking-wider mb-1">
             <Lock className="w-4 h-4" />
             <span>Statutory Oversight &amp; Compliance Audit</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-[#1C1B1F]">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#FFFFFF]">
             Auditor View &amp; AI Evaluation Metrics
           </h1>
-          <p className="text-xs sm:text-sm text-[#46434D] mt-0.5 max-w-2xl">
+          <p className="text-xs sm:text-sm text-[#D1D5DB] mt-0.5 max-w-2xl">
             Immutable trace of every citizen claim, consent change, AI decision threshold, and human officer override for State Audit transparency.
           </p>
         </div>
 
-        <div className="bg-white border border-[#9E98A8] px-3.5 py-2 rounded-md flex items-center gap-2 text-xs font-bold text-[#859114] shadow-sm">
+        <div className="bg-white border border-[#616060] px-3.5 py-2 rounded-md flex items-center gap-2 text-xs font-bold text-[#F59E0B] shadow-sm">
           <ShieldCheck className="w-4 h-4" />
           <span>Audit Log Immutability: SHA-256 Validated</span>
         </div>
@@ -112,49 +134,49 @@ export default function AuditorPage() {
 
       {/* AI Evaluation Metrics Panel */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white rounded-lg p-4 border border-[#9E98A8] shadow-sm">
-          <div className="flex items-center justify-between text-[#46434D] text-xs font-bold mb-1">
+        <div className="bg-white rounded-lg p-4 border border-[#616060] shadow-sm">
+          <div className="flex items-center justify-between text-[#D1D5DB] text-xs font-bold mb-1">
             <span>AI Decision Accuracy</span>
             <CheckCircle className="w-4 h-4 text-emerald-600" />
           </div>
-          <div className="text-2xl font-black text-[#1C1B1F] font-mono">96.4%</div>
-          <p className="text-[11px] text-[#46434D] mt-0.5">Ground truth match vs. NADRA records</p>
+          <div className="text-2xl font-black text-[#FFFFFF] font-mono">96.4%</div>
+          <p className="text-[11px] text-[#D1D5DB] mt-0.5">Ground truth match vs. NADRA records</p>
         </div>
 
-        <div className="bg-white rounded-lg p-4 border border-[#9E98A8] shadow-sm">
-          <div className="flex items-center justify-between text-[#46434D] text-xs font-bold mb-1">
+        <div className="bg-white rounded-lg p-4 border border-[#616060] shadow-sm">
+          <div className="flex items-center justify-between text-[#D1D5DB] text-xs font-bold mb-1">
             <span>False Positive Rate</span>
-            <AlertOctagon className="w-4 h-4 text-[#859114]" />
+            <AlertOctagon className="w-4 h-4 text-[#F59E0B]" />
           </div>
-          <div className="text-2xl font-black text-[#1C1B1F] font-mono">0.8%</div>
-          <p className="text-[11px] text-[#46434D] mt-0.5">Asymmetric risk router prevention</p>
+          <div className="text-2xl font-black text-[#FFFFFF] font-mono">0.8%</div>
+          <p className="text-[11px] text-[#D1D5DB] mt-0.5">Asymmetric risk router prevention</p>
         </div>
 
-        <div className="bg-white rounded-lg p-4 border border-[#9E98A8] shadow-sm">
-          <div className="flex items-center justify-between text-[#46434D] text-xs font-bold mb-1">
+        <div className="bg-white rounded-lg p-4 border border-[#616060] shadow-sm">
+          <div className="flex items-center justify-between text-[#D1D5DB] text-xs font-bold mb-1">
             <span>Human Handoff Rate</span>
             <Activity className="w-4 h-4 text-amber-600" />
           </div>
-          <div className="text-2xl font-black text-[#1C1B1F] font-mono">18.5%</div>
-          <p className="text-[11px] text-[#46434D] mt-0.5">Escalated on name variance / missing proof</p>
+          <div className="text-2xl font-black text-[#FFFFFF] font-mono">18.5%</div>
+          <p className="text-[11px] text-[#D1D5DB] mt-0.5">Escalated on name variance / missing proof</p>
         </div>
 
-        <div className="bg-white rounded-lg p-4 border border-[#9E98A8] shadow-sm">
-          <div className="flex items-center justify-between text-[#46434D] text-xs font-bold mb-1">
+        <div className="bg-white rounded-lg p-4 border border-[#616060] shadow-sm">
+          <div className="flex items-center justify-between text-[#D1D5DB] text-xs font-bold mb-1">
             <span>Avg Evaluation Latency</span>
             <Clock className="w-4 h-4 text-purple-600" />
           </div>
-          <div className="text-2xl font-black text-[#1C1B1F] font-mono">312 ms</div>
-          <p className="text-[11px] text-[#46434D] mt-0.5">gemini-2.5-flash + fuzzy matching</p>
+          <div className="text-2xl font-black text-[#FFFFFF] font-mono">312 ms</div>
+          <p className="text-[11px] text-[#D1D5DB] mt-0.5">gemini-2.5-flash + fuzzy matching</p>
         </div>
       </div>
 
       {/* Anomaly Detection Section */}
       {anomalies.length > 0 && (
-        <div className="bg-[#D5D1DC] border border-[#9E98A8] rounded-lg p-5">
+        <div className="bg-[#2E2D2D] border border-[#616060] rounded-lg p-5">
           <div className="flex items-center gap-2 mb-3">
             <AlertOctagon className="w-5 h-5 text-rose-700" />
-            <h3 className="text-sm font-bold text-[#1C1B1F]">
+            <h3 className="text-sm font-bold text-[#FFFFFF]">
               Live Anomaly Detection Watchdog ({anomalies.length} Flagged)
             </h3>
           </div>
@@ -162,7 +184,7 @@ export default function AuditorPage() {
             {anomalies.map((anom, idx) => (
               <div
                 key={idx}
-                className="bg-white border border-[#9E98A8] p-3 rounded-md text-xs space-y-1 shadow-sm"
+                className="bg-white border border-[#616060] p-3 rounded-md text-xs space-y-1 shadow-sm"
               >
                 <div className="flex items-center justify-between font-bold">
                   <span className="text-rose-700 font-mono">{anom.type || 'SYSTEM_ANOMALY'}</span>
@@ -170,8 +192,8 @@ export default function AuditorPage() {
                     {anom.severity || 'HIGH'}
                   </span>
                 </div>
-                <p className="text-[#1C1B1F]">{anom.description || anom.message}</p>
-                <div className="text-[10px] text-[#46434D] font-mono">
+                <p className="text-[#FFFFFF]">{anom.description || anom.message}</p>
+                <div className="text-[10px] text-[#D1D5DB] font-mono">
                   Timestamp: {new Date(anom.detectedAt || Date.now()).toLocaleTimeString()}
                 </div>
               </div>
@@ -181,30 +203,30 @@ export default function AuditorPage() {
       )}
 
       {/* Immutable Audit Log Table */}
-      <div className="bg-[#CBC6D3] rounded-lg border border-[#9E98A8] shadow-sm p-6 space-y-4">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-[#9E98A8] pb-3">
+      <div className="bg-[#383737] rounded-lg border border-[#616060] shadow-sm p-6 space-y-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-[#616060] pb-3">
           <div className="flex items-center gap-2">
-            <FileText className="w-5 h-5 text-[#859114]" />
-            <h2 className="text-base font-bold text-[#1C1B1F]">Immutable Audit Trail Logs</h2>
+            <FileText className="w-5 h-5 text-[#F59E0B]" />
+            <h2 className="text-base font-bold text-[#FFFFFF]">Immutable Audit Trail Logs</h2>
           </div>
 
           {/* Search & Filter */}
           <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
             <div className="relative flex-1 sm:w-52">
-              <Search className="w-3.5 h-3.5 text-[#46434D] absolute left-2.5 top-2.5" />
+              <Search className="w-3.5 h-3.5 text-[#D1D5DB] absolute left-2.5 top-2.5" />
               <input
                 type="text"
                 placeholder="Search actor or target..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-8 pr-3 py-1.5 text-xs bg-white border border-[#9E98A8] rounded-md focus:outline-none focus:border-[#859114] text-[#1C1B1F]"
+                className="w-full pl-8 pr-3 py-1.5 text-xs bg-white border border-[#616060] rounded-md focus:outline-none focus:border-[#F59E0B] text-[#FFFFFF]"
               />
             </div>
 
             <select
               value={filterAction}
               onChange={(e) => setFilterAction(e.target.value)}
-              className="text-xs bg-white border border-[#9E98A8] rounded-md px-2.5 py-1.5 focus:outline-none focus:border-[#859114] text-[#1C1B1F]"
+              className="text-xs bg-white border border-[#616060] rounded-md px-2.5 py-1.5 focus:outline-none focus:border-[#F59E0B] text-[#FFFFFF]"
             >
               <option value="ALL">All Actions</option>
               <option value="CASE_CREATED">Case Created</option>
@@ -220,9 +242,9 @@ export default function AuditorPage() {
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto bg-white rounded-md border border-[#9E98A8]">
-          <table className="w-full text-left text-xs text-[#1C1B1F]">
-            <thead className="bg-[#D5D1DC] text-[#1C1B1F] font-bold uppercase text-[10px] tracking-wider border-b border-[#9E98A8]">
+        <div className="overflow-x-auto bg-white rounded-md border border-[#616060]">
+          <table className="w-full text-left text-xs text-[#FFFFFF]">
+            <thead className="bg-[#2E2D2D] text-[#FFFFFF] font-bold uppercase text-[10px] tracking-wider border-b border-[#616060]">
               <tr>
                 <th className="py-2.5 px-3">Timestamp</th>
                 <th className="py-2.5 px-3">Action Type</th>
@@ -231,10 +253,10 @@ export default function AuditorPage() {
                 <th className="py-2.5 px-3">Metadata / Cryptographic Hash</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#9E98A8]/30 font-mono text-[11px]">
+            <tbody className="divide-y divide-[#616060]/30 font-mono text-[11px]">
               {filteredLogs.map((log) => (
                 <tr key={log.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="py-2.5 px-3 text-[#46434D] whitespace-nowrap">
+                  <td className="py-2.5 px-3 text-[#D1D5DB] whitespace-nowrap">
                     {new Date(log.timestamp).toLocaleString([], {
                       month: 'short',
                       day: 'numeric',
@@ -258,11 +280,11 @@ export default function AuditorPage() {
                       {log.action_type}
                     </span>
                   </td>
-                  <td className="py-2.5 px-3 text-[#1C1B1F] uppercase font-bold text-[10px] whitespace-nowrap font-sans">
+                  <td className="py-2.5 px-3 text-[#FFFFFF] uppercase font-bold text-[10px] whitespace-nowrap font-sans">
                     {log.actor_role} ({log.actor_id})
                   </td>
-                  <td className="py-2.5 px-3 text-[#1C1B1F] whitespace-nowrap">{log.target_id}</td>
-                  <td className="py-2.5 px-3 max-w-xs truncate text-[#46434D]">
+                  <td className="py-2.5 px-3 text-[#FFFFFF] whitespace-nowrap">{log.target_id}</td>
+                  <td className="py-2.5 px-3 max-w-xs truncate text-[#D1D5DB]">
                     {JSON.stringify(log.metadata)}
                   </td>
                 </tr>
