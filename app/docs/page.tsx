@@ -174,15 +174,15 @@ export default function ApiDocsPage() {
         <div className="flex items-center justify-between border-b border-[#616060] pb-3">
           <div className="flex items-center gap-2">
             <Key className="w-5 h-5 text-[#F59E0B]" />
-            <h2 className="text-base font-bold text-[#FFFFFF]">API Key Management</h2>
+            <h2 className="text-base font-bold text-white">API Key Management</h2>
           </div>
-          <span className="text-[10px] bg-white text-[#F59E0B] font-bold px-2 py-0.5 rounded border border-[#616060]">
+          <span className="text-[10px] bg-[#242323] text-[#FEF08A] font-bold px-2 py-0.5 rounded border border-[#616060]">
             Header: x-api-key
           </span>
         </div>
 
         {issuedKeyAlert && (
-          <div className="p-3 bg-white border border-[#F59E0B] text-[#FFFFFF] font-bold text-xs rounded-md shadow-sm">
+          <div className="p-3 bg-[#242323] border border-[#F59E0B] text-white font-bold text-xs rounded-md shadow-sm">
             {issuedKeyAlert}
           </div>
         )}
@@ -193,7 +193,7 @@ export default function ApiDocsPage() {
             value={newKeyName}
             onChange={(e) => setNewKeyName(e.target.value)}
             placeholder="Enter key name (e.g. Sindh Disaster Relief Integration)"
-            className="flex-1 h-9 px-3 bg-white rounded-md border border-[#616060] text-xs font-medium text-[#FFFFFF] focus:outline-none focus:border-[#F59E0B]"
+            className="flex-1 h-9 px-3 bg-[#242323] rounded-md border border-[#616060] text-xs font-medium text-white placeholder:text-[#A3A3A3] focus:outline-none focus:border-[#F59E0B]"
             required
           />
           <button
@@ -213,15 +213,15 @@ export default function ApiDocsPage() {
             {keys.map((k) => (
               <div
                 key={k.id}
-                className="p-3 rounded-md border border-[#616060] bg-white flex items-center justify-between shadow-sm"
+                className="p-3 rounded-md border border-[#616060] bg-[#242323] flex items-center justify-between shadow-sm"
               >
                 <div>
-                  <div className="font-bold text-[#FFFFFF]">{k.name}</div>
+                  <div className="font-bold text-white">{k.name}</div>
                   <div className="text-[11px] font-mono text-[#D1D5DB]">
                     {k.keyPrefix} ({k.rateLimitPerMinute} req/min)
                   </div>
                 </div>
-                <span className="text-[10px] bg-emerald-100 text-emerald-950 font-bold px-2 py-0.5 rounded border border-emerald-300">
+                <span className="text-[10px] bg-emerald-950/80 text-emerald-300 font-bold px-2 py-0.5 rounded border border-emerald-500/50">
                   ACTIVE
                 </span>
               </div>
@@ -231,7 +231,7 @@ export default function ApiDocsPage() {
       </div>
 
       {/* Interactive API Live Tester */}
-      <div className="bg-[#FFFFFF] text-white rounded-lg p-6 shadow-xl space-y-4 border border-[#616060]">
+      <div className="bg-[#2E2D2D] text-white rounded-lg p-6 shadow-xl space-y-4 border border-[#616060]">
         <div className="flex items-center justify-between border-b border-white/20 pb-3">
           <div className="flex items-center gap-2">
             <Terminal className="w-5 h-5 text-[#F59E0B]" />
@@ -294,7 +294,7 @@ export default function ApiDocsPage() {
 
             <p className="text-xs text-[#D1D5DB]">{ep.description}</p>
 
-            <div className="relative rounded-md bg-[#FFFFFF] p-3 text-white font-mono text-xs overflow-x-auto border border-[#616060]">
+            <div className="relative rounded-md bg-[#1E1E1E] p-3 text-white font-mono text-xs overflow-x-auto border border-[#616060]">
               <button
                 onClick={() => copyToClipboard(ep.curl, idx)}
                 className="absolute top-2 right-2 flex items-center gap-1 bg-[#F59E0B] hover:bg-[#D97706] text-white px-2 py-1 rounded text-[10px] font-sans font-bold shadow"

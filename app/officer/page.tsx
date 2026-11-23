@@ -283,12 +283,12 @@ export default function OfficerPage() {
                     }}
                     className={`w-full text-left p-3 rounded-md border text-xs transition ${
                       isSelected
-                        ? 'border-[#F59E0B] bg-white shadow-sm'
+                        ? 'border-[#F59E0B] bg-[#242323] shadow-sm'
                         : 'border-[#616060] bg-[#2E2D2D] hover:border-[#F59E0B]'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1">
-                      <span className="font-bold text-xs text-[#FFFFFF]">
+                      <span className="font-bold text-xs text-white">
                         {c.extracted_data.fullName || c.citizen_name || 'Applicant'}
                       </span>
                       <span
@@ -348,8 +348,8 @@ export default function OfficerPage() {
 
               {/* Side-by-Side: Extracted JSON vs Auditor Trace */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                <div className="p-3 bg-white rounded-md border border-[#616060] space-y-1.5">
-                  <div className="font-bold text-[#F59E0B] text-[11px] uppercase">
+                <div className="p-3 bg-[#242323] rounded-md border border-[#616060] space-y-1.5 text-white">
+                  <div className="font-bold text-[#FEF08A] text-[11px] uppercase">
                     Extracted Document Data
                   </div>
                   <div><strong>CNIC:</strong> {selectedCase.cnic_mock}</div>
@@ -359,30 +359,30 @@ export default function OfficerPage() {
                   <div><strong>OCR Clarity:</strong> {Math.round((selectedCase.extracted_data.ocrConfidence || 0.94) * 100)}%</div>
                 </div>
 
-                <div className="p-3 bg-white rounded-md border border-[#616060] space-y-1.5 font-mono text-[11px]">
-                  <div className="font-bold text-[#F59E0B] text-[11px] uppercase font-sans">
+                <div className="p-3 bg-[#242323] rounded-md border border-[#616060] space-y-1.5 font-mono text-[11px] text-white">
+                  <div className="font-bold text-[#FEF08A] text-[11px] uppercase font-sans">
                     Auditor Decision Trace
                   </div>
                   <div>Path: {selectedCase.auditor_trace?.decisionPath}</div>
                   <div>Fuzzy: {selectedCase.auditor_trace?.fuzzyMatchScore}</div>
                   <div>Hash: {selectedCase.auditor_trace?.inputHash}</div>
-                  <div className="text-amber-800">
+                  <div className="text-amber-400">
                     Flags: {selectedCase.auditor_trace?.asymmetricRiskFlags?.join(', ') || 'None'}
                   </div>
                 </div>
               </div>
 
               {/* Explanation Note */}
-              <div className="p-3 bg-white rounded-md border border-[#616060] text-xs">
-                <div className="font-bold text-[#D1D5DB] text-[10px] uppercase">Plain-Language Citizen Notice:</div>
-                <p className="text-[#FFFFFF] font-medium mt-0.5">
+              <div className="p-3 bg-[#242323] rounded-md border border-[#616060] text-xs">
+                <div className="font-bold text-[#FEF08A] text-[10px] uppercase">Plain-Language Citizen Notice:</div>
+                <p className="text-white font-medium mt-0.5">
                   {language === 'ur' ? selectedCase.citizen_explanation_ur : selectedCase.citizen_explanation_en}
                 </p>
               </div>
 
               {/* Officer Override Action Box */}
-              <div className="p-4 bg-white rounded-md border border-[#616060] space-y-3">
-                <h4 className="font-bold text-xs uppercase text-[#FFFFFF]">
+              <div className="p-4 bg-[#242323] rounded-md border border-[#616060] space-y-3">
+                <h4 className="font-bold text-xs uppercase text-white">
                   Officer Override &amp; Mandatory Reason Note
                 </h4>
                 <textarea
@@ -390,7 +390,7 @@ export default function OfficerPage() {
                   value={overrideNote}
                   onChange={(e) => setOverrideNote(e.target.value)}
                   placeholder="Enter mandatory reasoning note for audit trail (e.g. 'Verified physical union council death certificate for widow grant')..."
-                  className="w-full p-2.5 rounded-md border border-[#616060] text-xs text-[#FFFFFF] focus:outline-none focus:border-[#F59E0B]"
+                  className="w-full p-2.5 rounded-md border border-[#616060] bg-[#1E1E1E] text-xs text-white placeholder:text-[#A3A3A3] focus:outline-none focus:border-[#F59E0B]"
                 />
 
                 <div className="flex flex-wrap gap-2">
@@ -419,7 +419,7 @@ export default function OfficerPage() {
                 <button
                   onClick={handleAssign}
                   disabled={isSubmitting}
-                  className="py-1.5 px-3 rounded-md bg-white hover:bg-slate-50 border border-[#616060] font-bold text-[#FFFFFF] shadow-sm"
+                  className="py-1.5 px-3 rounded-md bg-[#383737] hover:bg-[#4A4949] border border-[#616060] font-bold text-white shadow-sm"
                 >
                   Assign to Field Helper
                 </button>
@@ -427,7 +427,7 @@ export default function OfficerPage() {
                 <button
                   onClick={handleEscalate}
                   disabled={isSubmitting}
-                  className="py-1.5 px-3 rounded-md bg-white hover:bg-slate-50 border border-[#616060] font-bold text-[#FFFFFF] shadow-sm"
+                  className="py-1.5 px-3 rounded-md bg-[#383737] hover:bg-[#4A4949] border border-[#616060] font-bold text-white shadow-sm"
                 >
                   Escalate to Senior Desk
                 </button>
@@ -435,7 +435,7 @@ export default function OfficerPage() {
                 <button
                   onClick={() => handleClose('approved')}
                   disabled={isSubmitting}
-                  className="py-1.5 px-3 rounded-md bg-white hover:bg-slate-50 border border-[#616060] font-bold text-[#FFFFFF] shadow-sm"
+                  className="py-1.5 px-3 rounded-md bg-[#383737] hover:bg-[#4A4949] border border-[#616060] font-bold text-white shadow-sm"
                 >
                   Close Case (Resolved)
                 </button>

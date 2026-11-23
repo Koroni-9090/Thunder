@@ -396,12 +396,12 @@ export default function CitizenPage() {
       {/* Top Banner */}
       <div className="bg-[#383737] rounded-lg p-6 border border-[#616060] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#F59E0B] bg-white px-2.5 py-0.5 rounded-md mb-2 border border-[#616060]">
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#F59E0B] bg-[#2E2D2D] px-2.5 py-0.5 rounded-md mb-2 border border-[#616060]">
             <span className="w-2 h-2 rounded-full bg-[#F59E0B] animate-pulse"></span>
             <span>CITIZEN PORTAL &mdash; LOW-LITERACY &amp; VOICE-FIRST</span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-black text-[#FFFFFF]">
+          <h1 className="text-2xl sm:text-3xl font-black text-white">
             {language === 'ur' ? `خوش آمدید، ${nameInput || 'شہری'}` : `Welcome, ${nameInput || 'Citizen'}`}
           </h1>
           <p className="text-[#D1D5DB] text-xs sm:text-sm mt-0.5">
@@ -419,7 +419,7 @@ export default function CitizenPage() {
             if (isSpeaking) stopSpeaking();
             else speak(intro, language);
           }}
-          className="flex items-center gap-2 bg-white hover:bg-slate-50 text-[#FFFFFF] font-bold px-4 py-2.5 rounded-md border border-[#616060] shadow-sm transition"
+          className="flex items-center gap-2 bg-[#2E2D2D] hover:bg-[#383737] text-white font-bold px-4 py-2.5 rounded-md border border-[#616060] shadow-sm transition"
         >
           {isSpeaking ? (
             <>
@@ -546,12 +546,12 @@ export default function CitizenPage() {
                     1. Upload Document (Images / PDF)
                   </span>
 
-                  <div className="w-12 h-12 rounded-lg bg-white shadow-sm flex items-center justify-center text-[#F59E0B] border border-[#616060]">
+                  <div className="w-12 h-12 rounded-lg bg-[#242323] shadow-sm flex items-center justify-center text-[#F59E0B] border border-[#616060]">
                     <Upload className="w-6 h-6" />
                   </div>
 
                   <div>
-                    <div className="font-bold text-xs text-[#FFFFFF]">
+                    <div className="font-bold text-xs text-white">
                       {uploadedFileName ? uploadedFileName : 'Click to Open File Explorer'}
                     </div>
                     <div className="text-[11px] text-[#D1D5DB]">
@@ -572,7 +572,7 @@ export default function CitizenPage() {
                   </button>
 
                   {ocrStatus && (
-                    <div className="text-[11px] font-bold text-[#FFFFFF] bg-white p-2 rounded-md border border-[#616060] w-full text-left">
+                    <div className="text-[11px] font-bold text-white bg-[#242323] p-2 rounded-md border border-[#616060] w-full text-left">
                       {ocrStatus}
                     </div>
                   )}
@@ -585,8 +585,8 @@ export default function CitizenPage() {
                 </div>
 
                 {/* 2. AI Matcher Form */}
-                <div className="p-4 rounded-lg border border-[#616060] bg-white space-y-3">
-                  <span className="font-bold text-xs uppercase tracking-wider text-[#FFFFFF] block">
+                <div className="p-4 rounded-lg border border-[#616060] bg-[#2E2D2D] space-y-3">
+                  <span className="font-bold text-xs uppercase tracking-wider text-[#FEF08A] block">
                     2. AI Matcher &amp; Verified Data
                   </span>
 
@@ -596,7 +596,7 @@ export default function CitizenPage() {
                       type="text"
                       value={nameInput}
                       onChange={(e) => setNameInput(e.target.value)}
-                      className="w-full h-9 px-3 rounded-md border border-[#616060] text-xs font-bold text-[#FFFFFF]"
+                      className="w-full h-9 px-3 rounded-md border border-[#616060] bg-[#242323] text-xs font-bold text-white focus:outline-none focus:border-[#F59E0B]"
                     />
                   </div>
 
@@ -606,7 +606,7 @@ export default function CitizenPage() {
                       type="text"
                       value={cnicInput}
                       onChange={(e) => setCnicInput(e.target.value)}
-                      className="w-full h-9 px-3 rounded-md border border-[#616060] text-xs font-mono text-[#FFFFFF]"
+                      className="w-full h-9 px-3 rounded-md border border-[#616060] bg-[#242323] text-xs font-mono text-white focus:outline-none focus:border-[#F59E0B]"
                     />
                   </div>
 
@@ -616,7 +616,7 @@ export default function CitizenPage() {
                       type="number"
                       value={incomeInput}
                       onChange={(e) => setIncomeInput(e.target.value)}
-                      className="w-full h-9 px-3 rounded-md border border-[#616060] text-xs font-bold text-[#FFFFFF]"
+                      className="w-full h-9 px-3 rounded-md border border-[#616060] bg-[#242323] text-xs font-bold text-white focus:outline-none focus:border-[#F59E0B]"
                     />
                   </div>
                 </div>
@@ -675,7 +675,7 @@ export default function CitizenPage() {
 
                   <button
                     onClick={stopSpeaking}
-                    className="w-10 h-10 rounded-full bg-[#FFFFFF] text-white flex items-center justify-center shadow hover:bg-black transition"
+                    className="w-10 h-10 rounded-full bg-[#383737] text-white border border-[#616060] flex items-center justify-center shadow hover:bg-[#242323] transition"
                     title="Stop audio"
                   >
                     <VolumeX className="w-4 h-4" />
@@ -684,7 +684,7 @@ export default function CitizenPage() {
                   <button
                     onClick={handleToggleMic}
                     className={`w-10 h-10 rounded-full flex items-center justify-center shadow transition ${
-                      isListeningSms ? 'bg-red-600 text-white animate-pulse' : 'bg-white text-[#F59E0B] border border-[#616060]'
+                      isListeningSms ? 'bg-red-600 text-white animate-pulse' : 'bg-[#2E2D2D] text-[#FEF08A] border border-[#616060]'
                     }`}
                     title="Speech input"
                   >
@@ -692,15 +692,15 @@ export default function CitizenPage() {
                   </button>
                 </div>
 
-                <div className="p-3 bg-white rounded-md border border-[#616060] text-xs text-[#FFFFFF] space-y-1">
-                  <div className="font-bold text-[#F59E0B]">Asymmetric Risk Principle:</div>
+                <div className="p-3 bg-[#242323] rounded-md border border-[#616060] text-xs text-white space-y-1">
+                  <div className="font-bold text-[#FEF08A]">Asymmetric Risk Principle:</div>
                   <p className="text-[11px] text-[#D1D5DB]">
                     &ldquo;Wrong approvals cost more than slow approvals.&rdquo; Name spelling variations (Mohammad vs Muhammad) are safely capped to 58% confidence and routed to Human Officer Tariq.
                   </p>
                 </div>
               </div>
 
-              <div className="p-2.5 bg-[#F59E0B]/15 border border-[#F59E0B]/40 rounded-md text-[11px] text-[#FFFFFF] font-bold">
+              <div className="p-2.5 bg-[#F59E0B]/15 border border-[#F59E0B]/40 rounded-md text-[11px] text-[#FEF08A] font-bold">
                 ⚡ Team Thunder DPI Engine &bull; Zero Hallucination
               </div>
             </div>
@@ -708,11 +708,11 @@ export default function CitizenPage() {
 
           {/* Decision Result Card */}
           {recentCase && (
-            <div className="bg-white rounded-lg p-6 border border-[#616060] shadow-md space-y-4">
+            <div className="bg-[#2E2D2D] rounded-lg p-6 border border-[#616060] shadow-md space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#616060]">
                 <div>
                   <span className="text-xs font-mono uppercase text-[#D1D5DB]">Case ID: {recentCase.id}</span>
-                  <h3 className="text-lg font-bold text-[#FFFFFF]">AI Risk Evaluation Decision</h3>
+                  <h3 className="text-lg font-bold text-white">AI Risk Evaluation Decision</h3>
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -780,7 +780,7 @@ export default function CitizenPage() {
               value={smsText}
               onChange={(e) => setSmsText(e.target.value)}
               placeholder="Paste SMS text here or tap mic to speak..."
-              className="w-full p-3.5 rounded-md border border-[#616060] bg-white text-xs sm:text-sm text-[#FFFFFF] focus:outline-none focus:border-[#F59E0B] shadow-inner"
+              className="w-full p-3.5 rounded-md border border-[#616060] bg-[#242323] text-xs sm:text-sm text-white placeholder:text-[#A3A3A3] focus:outline-none focus:border-[#F59E0B] shadow-inner"
             />
 
             <button
@@ -887,7 +887,7 @@ export default function CitizenPage() {
           </div>
 
           {consentAlert && (
-            <div className="p-3.5 rounded-md bg-white border border-[#F59E0B] text-[#FFFFFF] font-bold text-xs flex items-center gap-2 shadow">
+            <div className="p-3.5 rounded-md bg-[#242323] border border-[#F59E0B] text-white font-bold text-xs flex items-center gap-2 shadow">
               <ShieldCheck className="w-4 h-4 text-[#F59E0B] flex-shrink-0" />
               <span>{consentAlert}</span>
             </div>
@@ -905,14 +905,14 @@ export default function CitizenPage() {
                 {consents.map((c) => (
                   <div
                     key={c.id}
-                    className="p-4 rounded-md bg-white border border-[#616060] flex items-center justify-between shadow-sm"
+                    className="p-4 rounded-md bg-[#242323] border border-[#616060] flex items-center justify-between shadow-sm"
                   >
                     <div>
-                      <div className="font-bold text-xs text-[#FFFFFF] uppercase">
+                      <div className="font-bold text-xs text-white uppercase">
                         Role: {c.granted_to_role}
                       </div>
                       <div className="text-[11px] text-[#D1D5DB]">Scope: {c.scope}</div>
-                      <div className="text-[10px] text-[#F59E0B] font-bold mt-1">
+                      <div className="text-[10px] text-[#FEF08A] font-bold mt-1">
                         {c.is_active ? 'Active on Backend' : 'Blocked (403 Forbidden)'}
                       </div>
                     </div>
@@ -936,7 +936,7 @@ export default function CitizenPage() {
 
           {/* Right to Rectify Misspelled Names */}
           <div className="pt-4 border-t border-[#616060]">
-            <h3 className="text-sm font-bold text-[#FFFFFF] mb-1">
+            <h3 className="text-sm font-bold text-white mb-1">
               Right to Rectify (Citizen Data Sovereignty)
             </h3>
             <p className="text-xs text-[#D1D5DB] mb-4">
@@ -950,7 +950,7 @@ export default function CitizenPage() {
                 onChange={(e) => setCorrectionName(e.target.value)}
                 placeholder="Corrected Name"
                 required
-                className="h-9 px-3 rounded-md border border-[#616060] bg-white text-xs font-bold text-[#FFFFFF]"
+                className="h-9 px-3 rounded-md border border-[#616060] bg-[#242323] text-xs font-bold text-white focus:outline-none focus:border-[#F59E0B]"
               />
 
               <input
@@ -959,7 +959,7 @@ export default function CitizenPage() {
                 onChange={(e) => setCorrectionCnic(e.target.value)}
                 placeholder="Corrected CNIC"
                 required
-                className="h-9 px-3 rounded-md border border-[#616060] bg-white text-xs font-mono text-[#FFFFFF]"
+                className="h-9 px-3 rounded-md border border-[#616060] bg-[#242323] text-xs font-mono text-white focus:outline-none focus:border-[#F59E0B]"
               />
 
               <button

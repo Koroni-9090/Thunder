@@ -175,12 +175,12 @@ export default function LoginPage() {
                   key={p.role}
                   onClick={() => handle1ClickLogin(p)}
                   disabled={loading}
-                  className="w-full text-left bg-white hover:bg-slate-50 border border-[#616060] rounded-md p-2.5 text-xs transition shadow-sm hover:border-[#F59E0B] flex items-center justify-between group"
+                  className="w-full text-left bg-[#242323] hover:bg-[#2E2D2D] border border-[#616060] rounded-md p-2.5 text-xs transition shadow-sm hover:border-[#F59E0B] flex items-center justify-between group"
                 >
                   <div>
-                    <div className="font-bold text-[#FFFFFF] flex items-center gap-1.5">
+                    <div className="font-bold text-white flex items-center gap-1.5">
                       <span>{p.name}</span>
-                      <span className="text-[10px] uppercase font-bold px-1.5 py-0.2 rounded bg-[#F59E0B]/20 text-[#F59E0B]">
+                      <span className="text-[10px] uppercase font-bold px-1.5 py-0.2 rounded bg-[#F59E0B]/20 text-[#FEF08A]">
                         {p.role}
                       </span>
                     </div>
@@ -199,25 +199,25 @@ export default function LoginPage() {
         </div>
 
         {/* Right: Direct Email / Phone Sign In with OTP Verification */}
-        <div className="bg-white rounded-lg border border-[#616060] p-6 sm:p-8 flex flex-col justify-between shadow-sm">
+        <div className="bg-[#383737] rounded-lg border border-[#616060] p-6 sm:p-8 flex flex-col justify-between shadow-sm">
           <div>
             <div className="mb-5">
-              <h2 className="text-xl font-bold text-[#FFFFFF]">Sign In to SahulatRail</h2>
+              <h2 className="text-xl font-bold text-white">Sign In to SahulatRail</h2>
               <p className="text-xs text-[#D1D5DB] mt-1">
                 Enter your Email address or Mobile phone number (e.g. <code>0300-1234567</code>).
               </p>
             </div>
 
             {error && (
-              <div className="mb-4 p-3 bg-red-100 border border-red-300 text-red-950 text-xs rounded-md flex items-center gap-2 font-medium">
-                <AlertCircle className="w-4 h-4 text-red-700 flex-shrink-0" />
+              <div className="mb-4 p-3 bg-red-950/80 border border-red-500/50 text-red-300 text-xs rounded-md flex items-center gap-2 font-medium">
+                <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
                 <span>{error}</span>
               </div>
             )}
 
             {success && (
-              <div className="mb-4 p-3 bg-emerald-100 border border-emerald-300 text-emerald-950 text-xs rounded-md flex items-center gap-2 font-medium">
-                <CheckCircle2 className="w-4 h-4 text-emerald-700 flex-shrink-0" />
+              <div className="mb-4 p-3 bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-xs rounded-md flex items-center gap-2 font-medium">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
                 <span>{success}</span>
               </div>
             )}
@@ -225,7 +225,7 @@ export default function LoginPage() {
             {!otpStep ? (
               <form onSubmit={handleSendOtp} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-[#FFFFFF] mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     Email Address or Mobile Phone Number
                   </label>
                   <div className="relative">
@@ -236,7 +236,7 @@ export default function LoginPage() {
                       onChange={(e) => setIdentifier(e.target.value)}
                       placeholder="e.g. 0300-1234567 or rashida@example.com"
                       required
-                      className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-[#616060] rounded-md text-xs text-[#FFFFFF] focus:outline-none focus:border-[#F59E0B]"
+                      className="w-full pl-9 pr-3 py-2 bg-[#242323] border border-[#616060] rounded-md text-xs text-white placeholder:text-[#A3A3A3] focus:outline-none focus:border-[#F59E0B]"
                     />
                   </div>
                   <p className="text-[10px] text-[#D1D5DB] mt-1">
@@ -247,7 +247,7 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-white font-bold py-2.5 rounded-md text-xs flex items-center justify-center gap-2 transition shadow disabled:opacity-50"
+                  className="w-full bg-[#859114] hover:bg-[#6F7910] text-white font-bold py-2.5 rounded-md text-xs flex items-center justify-center gap-2 transition shadow disabled:opacity-50"
                 >
                   <span>{loading ? 'Sending Code...' : 'Send Verification OTP'}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -255,21 +255,21 @@ export default function LoginPage() {
               </form>
             ) : (
               <form onSubmit={handleVerifyOtp} className="space-y-4">
-                <div className="bg-[#2E2D2D] border border-[#616060] p-3 rounded-md text-xs text-[#FFFFFF]">
-                  <div className="font-bold flex items-center gap-1.5 mb-1 text-[#F59E0B]">
+                <div className="bg-[#2E2D2D] border border-[#616060] p-3 rounded-md text-xs text-white">
+                  <div className="font-bold flex items-center gap-1.5 mb-1 text-[#FEF08A]">
                     <Sparkles className="w-4 h-4" />
                     <span>Sandbox OTP Code</span>
                   </div>
                   <p className="text-[11px] text-[#D1D5DB]">
                     For hackathon grading convenience, your verification code is:
                   </p>
-                  <div className="text-xl font-bold font-mono tracking-widest text-[#FFFFFF] mt-1 bg-white p-2 rounded border border-[#616060] text-center">
+                  <div className="text-xl font-bold font-mono tracking-widest text-[#FEF08A] mt-1 bg-[#242323] p-2 rounded border border-[#616060] text-center">
                     {demoOtp || '123456'}
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-[#FFFFFF] mb-1">
+                  <label className="block text-xs font-bold text-white mb-1">
                     Enter 6-Digit OTP Code
                   </label>
                   <div className="relative">
@@ -281,7 +281,7 @@ export default function LoginPage() {
                       onChange={(e) => setOtp(e.target.value)}
                       placeholder="123456"
                       required
-                      className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-[#616060] rounded-md text-sm font-mono tracking-widest text-[#FFFFFF] focus:outline-none focus:border-[#F59E0B]"
+                      className="w-full pl-9 pr-3 py-2 bg-[#242323] border border-[#616060] rounded-md text-sm font-mono tracking-widest text-white placeholder:text-[#A3A3A3] focus:outline-none focus:border-[#F59E0B]"
                     />
                   </div>
                 </div>
@@ -289,7 +289,7 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-white font-bold py-2.5 rounded-md text-xs flex items-center justify-center gap-2 transition shadow disabled:opacity-50"
+                  className="w-full bg-[#859114] hover:bg-[#6F7910] text-white font-bold py-2.5 rounded-md text-xs flex items-center justify-center gap-2 transition shadow disabled:opacity-50"
                 >
                   <span>{loading ? 'Verifying...' : 'Verify OTP & Enter Portal'}</span>
                   <CheckCircle2 className="w-4 h-4" />
@@ -298,7 +298,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setOtpStep(false)}
-                  className="w-full text-center text-xs text-[#D1D5DB] hover:text-[#FFFFFF] py-1"
+                  className="w-full text-center text-xs text-[#D1D5DB] hover:text-white py-1"
                 >
                   &larr; Change email or phone number
                 </button>

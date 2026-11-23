@@ -126,7 +126,7 @@ export default function AuditorPage() {
           </p>
         </div>
 
-        <div className="bg-white border border-[#616060] px-3.5 py-2 rounded-md flex items-center gap-2 text-xs font-bold text-[#F59E0B] shadow-sm">
+        <div className="bg-[#2E2D2D] border border-[#616060] px-3.5 py-2 rounded-md flex items-center gap-2 text-xs font-bold text-[#FEF08A] shadow-sm">
           <ShieldCheck className="w-4 h-4" />
           <span>Audit Log Immutability: SHA-256 Validated</span>
         </div>
@@ -134,39 +134,39 @@ export default function AuditorPage() {
 
       {/* AI Evaluation Metrics Panel */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white rounded-lg p-4 border border-[#616060] shadow-sm">
+        <div className="bg-[#2E2D2D] rounded-lg p-4 border border-[#616060] shadow-sm">
           <div className="flex items-center justify-between text-[#D1D5DB] text-xs font-bold mb-1">
             <span>AI Decision Accuracy</span>
-            <CheckCircle className="w-4 h-4 text-emerald-600" />
+            <CheckCircle className="w-4 h-4 text-emerald-400" />
           </div>
-          <div className="text-2xl font-black text-[#FFFFFF] font-mono">96.4%</div>
+          <div className="text-2xl font-black text-white font-mono">96.4%</div>
           <p className="text-[11px] text-[#D1D5DB] mt-0.5">Ground truth match vs. NADRA records</p>
         </div>
 
-        <div className="bg-white rounded-lg p-4 border border-[#616060] shadow-sm">
+        <div className="bg-[#2E2D2D] rounded-lg p-4 border border-[#616060] shadow-sm">
           <div className="flex items-center justify-between text-[#D1D5DB] text-xs font-bold mb-1">
             <span>False Positive Rate</span>
             <AlertOctagon className="w-4 h-4 text-[#F59E0B]" />
           </div>
-          <div className="text-2xl font-black text-[#FFFFFF] font-mono">0.8%</div>
+          <div className="text-2xl font-black text-white font-mono">0.8%</div>
           <p className="text-[11px] text-[#D1D5DB] mt-0.5">Asymmetric risk router prevention</p>
         </div>
 
-        <div className="bg-white rounded-lg p-4 border border-[#616060] shadow-sm">
+        <div className="bg-[#2E2D2D] rounded-lg p-4 border border-[#616060] shadow-sm">
           <div className="flex items-center justify-between text-[#D1D5DB] text-xs font-bold mb-1">
             <span>Human Handoff Rate</span>
-            <Activity className="w-4 h-4 text-amber-600" />
+            <Activity className="w-4 h-4 text-amber-400" />
           </div>
-          <div className="text-2xl font-black text-[#FFFFFF] font-mono">18.5%</div>
+          <div className="text-2xl font-black text-white font-mono">18.5%</div>
           <p className="text-[11px] text-[#D1D5DB] mt-0.5">Escalated on name variance / missing proof</p>
         </div>
 
-        <div className="bg-white rounded-lg p-4 border border-[#616060] shadow-sm">
+        <div className="bg-[#2E2D2D] rounded-lg p-4 border border-[#616060] shadow-sm">
           <div className="flex items-center justify-between text-[#D1D5DB] text-xs font-bold mb-1">
             <span>Avg Evaluation Latency</span>
-            <Clock className="w-4 h-4 text-purple-600" />
+            <Clock className="w-4 h-4 text-purple-400" />
           </div>
-          <div className="text-2xl font-black text-[#FFFFFF] font-mono">312 ms</div>
+          <div className="text-2xl font-black text-white font-mono">312 ms</div>
           <p className="text-[11px] text-[#D1D5DB] mt-0.5">gemini-2.5-flash + fuzzy matching</p>
         </div>
       </div>
@@ -184,15 +184,15 @@ export default function AuditorPage() {
             {anomalies.map((anom, idx) => (
               <div
                 key={idx}
-                className="bg-white border border-[#616060] p-3 rounded-md text-xs space-y-1 shadow-sm"
+                className="bg-[#242323] border border-[#616060] p-3 rounded-md text-xs space-y-1 shadow-sm"
               >
                 <div className="flex items-center justify-between font-bold">
-                  <span className="text-rose-700 font-mono">{anom.type || 'SYSTEM_ANOMALY'}</span>
-                  <span className="text-[10px] bg-red-100 text-red-900 px-2 py-0.5 rounded uppercase font-bold">
+                  <span className="text-rose-400 font-mono">{anom.type || 'SYSTEM_ANOMALY'}</span>
+                  <span className="text-[10px] bg-red-950/80 border border-red-500/50 text-red-300 px-2 py-0.5 rounded uppercase font-bold">
                     {anom.severity || 'HIGH'}
                   </span>
                 </div>
-                <p className="text-[#FFFFFF]">{anom.description || anom.message}</p>
+                <p className="text-white">{anom.description || anom.message}</p>
                 <div className="text-[10px] text-[#D1D5DB] font-mono">
                   Timestamp: {new Date(anom.detectedAt || Date.now()).toLocaleTimeString()}
                 </div>
@@ -207,7 +207,7 @@ export default function AuditorPage() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-[#616060] pb-3">
           <div className="flex items-center gap-2">
             <FileText className="w-5 h-5 text-[#F59E0B]" />
-            <h2 className="text-base font-bold text-[#FFFFFF]">Immutable Audit Trail Logs</h2>
+            <h2 className="text-base font-bold text-white">Immutable Audit Trail Logs</h2>
           </div>
 
           {/* Search & Filter */}
@@ -219,14 +219,14 @@ export default function AuditorPage() {
                 placeholder="Search actor or target..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-8 pr-3 py-1.5 text-xs bg-white border border-[#616060] rounded-md focus:outline-none focus:border-[#F59E0B] text-[#FFFFFF]"
+                className="w-full pl-8 pr-3 py-1.5 text-xs bg-[#242323] border border-[#616060] rounded-md focus:outline-none focus:border-[#F59E0B] text-white placeholder:text-[#A3A3A3]"
               />
             </div>
 
             <select
               value={filterAction}
               onChange={(e) => setFilterAction(e.target.value)}
-              className="text-xs bg-white border border-[#616060] rounded-md px-2.5 py-1.5 focus:outline-none focus:border-[#F59E0B] text-[#FFFFFF]"
+              className="text-xs bg-[#242323] border border-[#616060] rounded-md px-2.5 py-1.5 focus:outline-none focus:border-[#F59E0B] text-white"
             >
               <option value="ALL">All Actions</option>
               <option value="CASE_CREATED">Case Created</option>
@@ -242,9 +242,9 @@ export default function AuditorPage() {
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto bg-white rounded-md border border-[#616060]">
-          <table className="w-full text-left text-xs text-[#FFFFFF]">
-            <thead className="bg-[#2E2D2D] text-[#FFFFFF] font-bold uppercase text-[10px] tracking-wider border-b border-[#616060]">
+        <div className="overflow-x-auto bg-[#2E2D2D] rounded-md border border-[#616060]">
+          <table className="w-full text-left text-xs text-white">
+            <thead className="bg-[#242323] text-white font-bold uppercase text-[10px] tracking-wider border-b border-[#616060]">
               <tr>
                 <th className="py-2.5 px-3">Timestamp</th>
                 <th className="py-2.5 px-3">Action Type</th>
@@ -253,9 +253,9 @@ export default function AuditorPage() {
                 <th className="py-2.5 px-3">Metadata / Cryptographic Hash</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#616060]/30 font-mono text-[11px]">
+            <tbody className="divide-y divide-[#616060]/40 font-mono text-[11px]">
               {filteredLogs.map((log) => (
-                <tr key={log.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={log.id} className="hover:bg-[#383737] transition-colors">
                   <td className="py-2.5 px-3 text-[#D1D5DB] whitespace-nowrap">
                     {new Date(log.timestamp).toLocaleString([], {
                       month: 'short',
@@ -269,21 +269,21 @@ export default function AuditorPage() {
                     <span
                       className={`px-2 py-0.5 rounded text-[10px] font-bold font-sans ${
                         log.action_type.includes('REVOKED') || log.action_type.includes('REJECT')
-                          ? 'bg-rose-100 text-rose-900 border border-rose-300'
+                          ? 'bg-rose-950/80 text-rose-300 border border-rose-500/50'
                           : log.action_type.includes('OVERRIDE') || log.action_type.includes('CORRECTED')
-                          ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                          ? 'bg-amber-950/80 text-amber-300 border border-amber-500/50'
                           : log.action_type.includes('AI_DECISION')
-                          ? 'bg-blue-100 text-blue-900 border border-blue-300'
-                          : 'bg-emerald-100 text-emerald-900 border border-emerald-300'
+                          ? 'bg-blue-950/80 text-blue-300 border border-blue-500/50'
+                          : 'bg-emerald-950/80 text-emerald-300 border border-emerald-500/50'
                       }`}
                     >
                       {log.action_type}
                     </span>
                   </td>
-                  <td className="py-2.5 px-3 text-[#FFFFFF] uppercase font-bold text-[10px] whitespace-nowrap font-sans">
+                  <td className="py-2.5 px-3 text-white uppercase font-bold text-[10px] whitespace-nowrap font-sans">
                     {log.actor_role} ({log.actor_id})
                   </td>
-                  <td className="py-2.5 px-3 text-[#FFFFFF] whitespace-nowrap">{log.target_id}</td>
+                  <td className="py-2.5 px-3 text-white whitespace-nowrap">{log.target_id}</td>
                   <td className="py-2.5 px-3 max-w-xs truncate text-[#D1D5DB]">
                     {JSON.stringify(log.metadata)}
                   </td>

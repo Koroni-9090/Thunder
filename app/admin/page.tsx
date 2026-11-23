@@ -174,11 +174,11 @@ export default function AdminPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 bg-white px-4 py-2.5 rounded-md border border-[#616060] shadow-sm">
+        <div className="flex items-center gap-2 bg-[#2E2D2D] px-4 py-2.5 rounded-md border border-[#616060] shadow-sm">
           <History className="w-4 h-4 text-[#F59E0B]" />
           <div className="text-xs">
             <div className="text-[#D1D5DB]">Current Live Version</div>
-            <div className="font-bold text-[#FFFFFF] font-mono">
+            <div className="font-bold text-white font-mono">
               v{activeRule?.version_number || 1} ({activeRule?.id || 'rule-v1'})
             </div>
           </div>
@@ -206,9 +206,9 @@ export default function AdminPage() {
           <div className="flex items-center justify-between border-b border-[#616060] pb-3">
             <div className="flex items-center gap-2">
               <Sliders className="w-5 h-5 text-[#F59E0B]" />
-              <h2 className="text-base font-bold text-[#FFFFFF]">Policy Parameter Knobs</h2>
+              <h2 className="text-base font-bold text-white">Policy Parameter Knobs</h2>
             </div>
-            <span className="text-[11px] font-mono bg-white text-[#F59E0B] px-2 py-0.5 rounded border border-[#616060] font-bold">
+            <span className="text-[11px] font-mono bg-[#242323] text-[#FEF08A] px-2 py-0.5 rounded border border-[#616060] font-bold">
               Dynamic (No Code Change)
             </span>
           </div>
@@ -228,7 +228,7 @@ export default function AdminPage() {
               step="1000"
               value={maxIncome}
               onChange={(e) => setMaxIncome(Number(e.target.value))}
-              className="w-full accent-[#F59E0B] h-2 bg-white rounded cursor-pointer border border-[#616060]"
+              className="w-full accent-[#F59E0B] h-2 bg-[#242323] rounded cursor-pointer border border-[#616060]"
             />
             <p className="text-[11px] text-[#D1D5DB] mt-1">
               Applicants with reported or NADRA income exceeding this ceiling are rejected.
@@ -250,7 +250,7 @@ export default function AdminPage() {
               step="0.01"
               value={autoThreshold}
               onChange={(e) => setAutoThreshold(Number(e.target.value))}
-              className="w-full accent-emerald-700 h-2 bg-white rounded cursor-pointer border border-[#616060]"
+              className="w-full accent-emerald-700 h-2 bg-[#242323] rounded cursor-pointer border border-[#616060]"
             />
             <p className="text-[11px] text-[#D1D5DB] mt-1">
               Minimum composite score required to trigger instant Raast disbursement without human intervention.
@@ -272,7 +272,7 @@ export default function AdminPage() {
               step="0.01"
               value={humanThreshold}
               onChange={(e) => setHumanThreshold(Number(e.target.value))}
-              className="w-full accent-amber-700 h-2 bg-white rounded cursor-pointer border border-[#616060]"
+              className="w-full accent-amber-700 h-2 bg-[#242323] rounded cursor-pointer border border-[#616060]"
             />
             <p className="text-[11px] text-[#D1D5DB] mt-1">
               Cases falling below auto-approve but above this floor are sent to Welfare Officer Tariq&apos;s queue.
@@ -295,7 +295,7 @@ export default function AdminPage() {
               type="button"
               onClick={handleSaveNewRuleVersion}
               disabled={saving}
-              className="flex-1 bg-[#FFFFFF] hover:bg-black text-white font-bold py-3 px-4 rounded-md text-xs flex items-center justify-center gap-2 transition shadow disabled:opacity-50"
+              className="flex-1 bg-[#383737] hover:bg-[#242323] text-white border border-[#616060] font-bold py-3 px-4 rounded-md text-xs flex items-center justify-center gap-2 transition shadow disabled:opacity-50"
             >
               <Save className="w-4 h-4" />
               <span>Save &amp; Activate Version</span>
@@ -318,21 +318,21 @@ export default function AdminPage() {
               <div className="space-y-5">
                 {/* Metric Cards */}
                 <div className="grid grid-cols-3 gap-3">
-                  <div className="bg-white border border-[#616060] p-3 rounded-md text-center shadow-sm">
-                    <div className="text-[11px] font-bold text-emerald-800">Auto-Approved</div>
-                    <div className="text-2xl font-black text-[#FFFFFF] mt-0.5">
+                  <div className="bg-[#2E2D2D] border border-[#616060] p-3 rounded-md text-center shadow-sm">
+                    <div className="text-[11px] font-bold text-emerald-400">Auto-Approved</div>
+                    <div className="text-2xl font-black text-white mt-0.5">
                       {simulationResult.predictedStatusCounts?.auto_approved ?? 1}
                     </div>
                   </div>
-                  <div className="bg-white border border-[#616060] p-3 rounded-md text-center shadow-sm">
-                    <div className="text-[11px] font-bold text-amber-800">Human Handoff</div>
-                    <div className="text-2xl font-black text-[#FFFFFF] mt-0.5">
+                  <div className="bg-[#2E2D2D] border border-[#616060] p-3 rounded-md text-center shadow-sm">
+                    <div className="text-[11px] font-bold text-amber-400">Human Handoff</div>
+                    <div className="text-2xl font-black text-white mt-0.5">
                       {simulationResult.predictedStatusCounts?.human_review ?? 1}
                     </div>
                   </div>
-                  <div className="bg-white border border-[#616060] p-3 rounded-md text-center shadow-sm">
-                    <div className="text-[11px] font-bold text-rose-800">Rejected</div>
-                    <div className="text-2xl font-black text-[#FFFFFF] mt-0.5">
+                  <div className="bg-[#2E2D2D] border border-[#616060] p-3 rounded-md text-center shadow-sm">
+                    <div className="text-[11px] font-bold text-rose-400">Rejected</div>
+                    <div className="text-2xl font-black text-white mt-0.5">
                       {simulationResult.predictedStatusCounts?.rejected ?? 0}
                     </div>
                   </div>
@@ -340,9 +340,9 @@ export default function AdminPage() {
 
                 {/* Status Flips Table */}
                 <div>
-                  <h4 className="text-xs font-bold text-[#FFFFFF] mb-2 flex items-center gap-1.5">
+                  <h4 className="text-xs font-bold text-white mb-2 flex items-center gap-1.5">
                     <span>Predicted Decision Flips:</span>
-                    <span className="bg-[#F59E0B] text-white font-mono text-[10px] px-1.5 py-0.2 rounded font-bold">
+                    <span className="bg-[#F59E0B] text-[#1C1B1F] font-mono text-[10px] px-1.5 py-0.2 rounded font-bold">
                       {simulationResult.flips?.length || 0} cases affected
                     </span>
                   </h4>
@@ -352,30 +352,30 @@ export default function AdminPage() {
                       {simulationResult.flips.map((flip: any, idx: number) => (
                         <div
                           key={idx}
-                          className="bg-white border border-[#616060] p-3 rounded-md text-xs flex items-center justify-between shadow-sm"
+                          className="bg-[#2E2D2D] border border-[#616060] p-3 rounded-md text-xs flex items-center justify-between shadow-sm"
                         >
                           <div>
-                            <div className="font-bold text-[#FFFFFF]">{flip.citizenName || flip.caseId}</div>
+                            <div className="font-bold text-white">{flip.citizenName || flip.caseId}</div>
                             <div className="text-[11px] text-[#D1D5DB]">Reason: {flip.reason}</div>
                           </div>
                           <div className="flex items-center gap-2 font-mono text-[11px]">
-                            <span className="line-through text-[#D1D5DB]">{flip.oldStatus}</span>
+                            <span className="line-through text-[#A3A3A3]">{flip.oldStatus}</span>
                             <ArrowRight className="w-3.5 h-3.5 text-[#F59E0B]" />
-                            <span className="font-bold text-[#F59E0B]">{flip.newStatus}</span>
+                            <span className="font-bold text-[#FEF08A]">{flip.newStatus}</span>
                           </div>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <p className="text-xs text-[#D1D5DB] italic bg-white p-4 rounded-md border border-[#616060] text-center">
+                    <p className="text-xs text-[#D1D5DB] italic bg-[#2E2D2D] p-4 rounded-md border border-[#616060] text-center">
                       No historical cases flip status with these parameter values.
                     </p>
                   )}
                 </div>
               </div>
             ) : (
-              <div className="text-center py-12 px-4 space-y-3 bg-white/50 rounded-md border border-[#616060]">
-                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center mx-auto text-[#F59E0B] shadow border border-[#616060]">
+              <div className="text-center py-12 px-4 space-y-3 bg-[#242323] rounded-md border border-[#616060]">
+                <div className="w-10 h-10 rounded-full bg-[#2E2D2D] flex items-center justify-center mx-auto text-[#F59E0B] shadow border border-[#616060]">
                   <Play className="w-5 h-5 ml-0.5 fill-[#F59E0B]" />
                 </div>
                 <h3 className="text-sm font-bold text-[#FFFFFF]">No Simulation Run Yet</h3>
